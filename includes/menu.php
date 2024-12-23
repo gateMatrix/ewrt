@@ -92,14 +92,14 @@
 						</div>
 					</div>
 					<div class="menu-item">
-						<a href="profile.html" class="menu-link">
+						<a href="users.php" class="menu-link">
 							<span class="menu-icon"><i class="fa fa-users"></i></span>
 							<span class="menu-text">Users</span>
 						</a>
 					</div>
 
 					<div class="menu-item">
-						<a href="analytics.html" class="menu-link">
+						<a href="#" class="menu-link">
 							<span class="menu-icon"><i class="fa fa-chart-pie"></i></span>
 							<span class="menu-text">Reports</span>
 						</a>

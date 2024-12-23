@@ -146,7 +146,7 @@
 <tbody>
 
 <?php  
-$sql = "SELECT incident.incidentID, incident.name AS iname, incident.monitor, incident.status AS status, village.villageID, village.name AS vname, users.userID, users.fullname AS fullname   FROM incident INNER JOIN village ON incident.village=village.villageID INNER JOIN users ON incident.monitor=users.userID";
+$sql = "SELECT incident.incidentID, incident.name AS iname, incident.monitor, incident.status AS status, village.villageID, village.name AS vname, users.userID, users.fullname AS fullname   FROM incident INNER JOIN village ON incident.village=village.villageID INNER JOIN users ON incident.monitor=users.userID LIMIT 5";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
@@ -155,7 +155,7 @@ while($row = mysqli_fetch_array($result)) {
 	echo "<td>";
 	echo "<div class=' flex-grow-1'>";
 	echo "<div class='fw-600 text-body'>".$row['vname']."</div>";
-	echo "<div class='fs-13px'>".$row['iname']."</div>";
+	echo "<div class='fs-13px'>".substr_replace($row['iname'], "...", 40)."</div>";
 	echo "</div>";
 	echo "</td>";
 	if ($row['status'] == 'completed') {
