@@ -80,7 +80,7 @@ include "dbhandle.php";
 	</button>
 </div>
 
-<a href="index.html" class="brand-logo">
+<a href="./dash.php" class="brand-logo">
 	<img style="height: 550px !important;" src="./assets/img/logo.png" class="invert-dark" alt="" >
 </a>
 </div>
@@ -105,7 +105,7 @@ include "dbhandle.php";
 		<div class="menu-text"><?php echo $_SESSION['user']; ?></div>
 	</a>
 	<div class="dropdown-menu dropdown-menu-end me-lg-3">
-		<a class="dropdown-item d-flex align-items-center" href="profile.html">Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
+		<a class="dropdown-item d-flex align-items-center" href="#">Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
 
 		<a class="dropdown-item d-flex align-items-center" href="./logout.php">Log Out <i class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i></a>
 	</div>

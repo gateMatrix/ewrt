@@ -19,7 +19,7 @@
 						</a>
 					</div>
 					<div class="menu-item">
-						<a href="evidence.php" class="menu-link">
+						<a href="#" class="menu-link">
 							<span class="menu-icon"><i class="far fa-hand-paper"></i></span>
 							<span class="menu-text">Evidences</span>
 						</a>
