@@ -6,6 +6,6 @@
     height: var(--bs-app-header-height);
 
 }
-.form-control{
-    padding-top: 15px !important;
+.form-control {
+    padding: .375rem .575rem !important;
 }

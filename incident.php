@@ -30,20 +30,29 @@ $severity 		= $_POST["severity"];
 $injured 		= $_POST["injured"];
 $fatalities 	= $_POST["fatalities"];
 $perpetrators 	= $_POST["perpetrators"];
-
+ 
 $date=date_create($_POST['date']);
 $date1 = date_format($date,"Y-m-d");
 
 $monitor 		= $_SESSION['id']; 
+$length = 6;
+$incidentID = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
-$sql = "INSERT INTO incident (name, incidentType, village, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$name', '$incidentType', '$village', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
+$sql = "SELECT * FROM users WHERE userID=$monitor ";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$phone = $row['phone'];
+echo "<h1>Godwin</h1>";
+
+$sql = "INSERT INTO incident (incidentID, name, incidentType, village, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$village', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
 
 if(mysqli_query($con, $sql)){
+SendSMS('non_customised','bulk', $phone, $message);
 echo "
     <div class='alert alert-primary alert-dismissible fade show' role='alert'>
         Incident added successful!
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
-        </button>
+        </button> 
     </div>";
 
 } else{
@@ -76,7 +85,6 @@ echo "
 <div class="mb-3">
 	<label class="form-label">Location of Incident (Village)</label>
     <select class="selectpicker form-control" id="ex-search"  name="village">
-        <option>Select Village</option>
         <?php 
         $sql = "SELECT * FROM village";
         if($result = mysqli_query($con, $sql)){
@@ -101,7 +109,6 @@ echo "
 <div class="mb-3">
 	<label class="form-label">Type of Incident</label>
     <select class="form-select" id="example-select" class="choices form-select" name="incidentType">
-        <option>Select Incident</option>
         <?php 
         $sql = "SELECT * FROM responses WHERE indicator=6";
         if($result = mysqli_query($con, $sql)){
@@ -123,7 +130,6 @@ echo "
 <div class="mb-3">
 	<label class="form-label">Severity of the incident</label>
     <select class="form-select" id="example-select" class="choices form-select" name="severity">
-        <option>Select Incident</option>
         <?php 
         $sql = "SELECT * FROM responses WHERE indicator=9";
         if($result = mysqli_query($con, $sql)){
@@ -165,7 +171,6 @@ echo "
 <div class="mb-3">
 	<label class="form-label">Perpetrators</label>
     <select class="form-select" name="perpetrators" id="example-select" class="choices form-select">
-        <option>Select Incident</option>
         <?php 
         $sql = "SELECT * FROM responses WHERE indicator=11";
         if($result = mysqli_query($con, $sql)){

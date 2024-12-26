@@ -32,15 +32,48 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$date = date("Y-m-d", strtotime("- 1 weeks"));
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 > '$date' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
-			      echo $row['NumberOfIncidents'];
+			$twoweeks = $row['NumberOf2Weeks'];
+
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
+			$result = mysqli_query($con, $sql);
+			$row = mysqli_fetch_array($result);
+			echo $row['NumberOfIncidents']."<br/>";;
+			$oneweeksago = $row['NumberOfIncidents'];
+
+			
+			$twoweeksago = $twoweeks-$oneweeksago;
+			$diff = $oneweeksago - $twoweeksago;  
+			 
+
+
 			  ?>
 			</h3>
 			
-			<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-up"></i> 16% increase <br>compare to last week</div>
+			<div class="text-white text-opacity-80 mb-4">
+				<?php if($twoweeksago >= 1 ){
+
+						if ($diff < 1) {
+						$increase = ($diff/$twoweeksago)*100;
+						echo "<i class='fa fa-caret-down'></i>";
+						echo " ".-1*round($increase, 0)."% decrease <br>compare to last week";
+					}elseif($diff >= 1){
+						$increase = ($diff/$twoweeksago)*100;
+						echo "<i class='fa fa-caret-up'></i>";
+						echo " ".$increase."% increase <br>compare to last week";
+					}  
+					echo "</div>";
+				}elseif($twoweeksago < 1){
+						echo "not enough data yet";
+					echo "</div>";
+				} ?>
+					
+				 
+
+
+
 			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
 		</div>
 		<!-- BEGIN card-body -->
@@ -62,15 +95,44 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$date = date("Y-m-d", strtotime("- 1 weeks"));
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 > '$date' AND status='incomplete' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='incomplete' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
-			      echo $row['NumberOfIncidents'];
+			$twoweeks = $row['NumberOf2Weeks'];
+
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='incomplete' ";
+			$result = mysqli_query($con, $sql);
+			$row = mysqli_fetch_array($result);
+			echo $row['NumberOfIncidents']."<br/>";;
+			$oneweeksago = $row['NumberOfIncidents'];
+
+			
+			$twoweeksago = $twoweeks-$oneweeksago;
+			$diff = $oneweeksago - $twoweeksago;  
+			 
 			  ?>
 			</h3>
 			
-			<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-up"></i> 33% increase <br>compare to last week</div>
+			<div class="text-white text-opacity-80 mb-4">
+				<?php if($twoweeksago >= 1 ){
+
+						if ($diff < 1) {
+						$increasep = ($diff/$twoweeksago);
+						echo "<i class='fa fa-caret-down'></i>";
+						echo " ".-1*round($increasep, 0)."x increase in completion rate <br>compare to last week";
+					}elseif($diff >= 1){
+						$increasep = ($diff/$twoweeksago);
+						echo "<i class='fa fa-caret-down'></i>";
+						echo " ".$increasep."x decline in completion rate <br>compare to last week";
+					}  
+					echo "</div>";
+				}elseif($twoweeksago < 1){
+						echo "not enough data yet";
+					echo "</div>";
+				} ?>
+
+
+
 			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
 		</div>
 		<!-- END card-body -->
@@ -94,17 +156,43 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$date = date("Y-m-d", strtotime("- 1 weeks"));
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 > '$date' AND status='completed' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='complete' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
-			      echo $row['NumberOfIncidents'];
-			?>
+			$twoweeks = $row['NumberOf2Weeks'];
 
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='complete' ";
+			$result = mysqli_query($con, $sql);
+			$row = mysqli_fetch_array($result);
+			echo $row['NumberOfIncidents']."<br/>";;
+			$oneweeksago = $row['NumberOfIncidents'];
 
+			$twoweeksago = $twoweeks-$oneweeksago;
+			$diff = $oneweeksago - $twoweeksago;  
+			 
+			  ?>
 			</h3>
 			
-			<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-up"></i> 20% increase <br>compare to last week</div>
+			<div class="text-white text-opacity-80 mb-4">
+				<?php if($twoweeksago >= 1 ){
+
+						if ($diff < 1) {
+						$increasep = ($diff/$twoweeksago);
+						echo "<i class='fa fa-caret-down'></i>";
+						echo " ".-1*round($increasep, 0)."x increase in completion rate <br>compare to last week";
+					}elseif($diff >= 1){
+						$increasep = ($diff/$twoweeksago);
+						echo "<i class='fa fa-caret-down'></i>";
+						echo " ".$increasep."x decline in completion rate <br>compare to last week";
+					}  
+					echo "</div>";
+				}elseif($twoweeksago < 1){
+						echo "not enough data yet";
+					echo "</div>";
+				} ?>
+
+
+
 			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
 		</div>
 		<!-- END card-body -->
@@ -134,10 +222,10 @@
  
 <!-- BEGIN table-responsive -->
 <div class="table-responsive mb-n2">
-<table class="table table-borderless mb-0">
+<table class="table mb-20">
 <thead>
 	<tr class="text-body">
-		<th class="ps-0">ID</th>
+		<th class="ps-0">Severity</th>
 		<th>Incident Details</th>
 		<th class="text-center">Status</th>
 		<th class="text-end pe-0">Peace Monitor</th>
@@ -146,22 +234,29 @@
 <tbody>
 
 <?php  
-$sql = "SELECT incident.incidentID, incident.name AS iname, incident.monitor, incident.status AS status, village.villageID, village.name AS vname, users.userID, users.fullname AS fullname   FROM incident INNER JOIN village ON incident.village=village.villageID INNER JOIN users ON incident.monitor=users.userID LIMIT 5";
+$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID LIMIT 5";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
 	echo "<tr>";
-	echo "<td class='ps-0'>".$row['incidentID']."</td>";
+	if ($row['severity'] == 'Minor') {
+		echo "<td><span class='badge bg-success bg-opacity-20 text-success'>".strtoupper($row['severity'])."</span></td>";
+	}elseif ($row['severity'] == 'Moderate') {
+		echo "<td><span class='badge bg-primary bg-opacity-20 text-primary'>".strtoupper($row['severity'])."</span></td>";
+	}elseif($row['severity'] == 'Severe'){
+		echo "<td><span class='badge bg-danger bg-opacity-20 text-danger'>".strtoupper($row['severity'])."</span></td>";
+	}
+
 	echo "<td>";
 	echo "<div class=' flex-grow-1'>";
-	echo "<div class='fw-600 text-body'>".$row['vname']."</div>";
-	echo "<div class='fs-13px'>".substr_replace($row['iname'], "...", 40)."</div>";
+	echo "<div class='fw-600 text-body'>".$row['incidentID']."</div>";
+	echo "<div class='fs-13px'>".substr_replace($row['name'], "...", 160)."</div>";
 	echo "</div>";
 	echo "</td>";
-	if ($row['status'] == 'completed') {
-		echo "<td class='text-center'><span class='badge bg-success bg-opacity-20 text-success' style='min-width: 60px;'>".$row['status']."</span></td>";
+	if ($row['status'] == 'complete') {
+		echo "<td class='text-center'><span class='badge bg-success bg-opacity-20 text-success' style='min-width: 60px;'>".strtoupper($row['status'])."</span></td>";
 	}elseif ($row['status'] == 'incomplete') {
-		echo "<td class='text-center'><span class='badge bg-danger bg-opacity-20 text-danger' style='min-width: 60px;'>".$row['status']."</span></td>";
+		echo "<td class='text-center'><span class='badge bg-danger bg-opacity-20 text-danger' style='min-width: 60px;'>".strtoupper($row['status'])."</span></td>";
 	}else{
 		echo "";
 	}
