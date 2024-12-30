@@ -238,7 +238,7 @@ $sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
-	echo "<tr>";
+	echo "<tr>"; 
 	if ($row['severity'] == 'Minor') {
 		echo "<td><span class='badge bg-success bg-opacity-20 text-success'>".strtoupper($row['severity'])."</span></td>";
 	}elseif ($row['severity'] == 'Moderate') {
