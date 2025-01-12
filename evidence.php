@@ -88,16 +88,6 @@ echo "
 </div>
 </div>
 
-<div class="row"> 
-<div class="mb-3">
-    <label class="form-label" for="multipleFile">Photo Evidence</label>
-    <input type="file" name="videos" class="form-control" id="multipleFile" multiple>
-</div>
-</div>
-
-
-
-
 <div class="form-group mb-3">
 	<button type="submit" name="newincident" class="btn btn-theme btn"><i class="fa fa-upload "></i> Upload Evidence</button>
 </div>

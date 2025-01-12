@@ -56,7 +56,7 @@ echo "<td> "; ?>
 echo "<a href='Conflict-driver.php?id=".$row['incidentID']." type='button' class='btn btn-theme btn-sm'>Add Conflict Drivers</a>";
 }elseif ($row['evidence'] == 0) {
 // code...
-echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Submit evidence first!' type='button' class='btn btn-theme btn-sm'>Add Conflict Drivers </a>";
+echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Submit evidence first!' type='button' class='btn bg-danger-subtle  btn-sm'>Add Conflict Drivers </a>";
 } ?> 
 <?php 
 echo "</td>";

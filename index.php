@@ -1,11 +1,4 @@
-<?php
-session_start();
-if (isset($_SESSION['user'])) {
-    window.history.go(-1);
-}
 
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
