@@ -38,7 +38,7 @@
 <?php  
 $tableid = "qtnID";
 $tableName = "indicators";
-$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.risk, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
+$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.response, incident.risk, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
@@ -51,13 +51,17 @@ echo "<td>
 <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' >".$row['status']."</a>
 </td>";
 echo "<td> "; ?>
-<?php if ($row['risk'] == 1) {
+<?php if ($row['risk'] == 1 AND $row['response']==0 ) { 
 // code...
-echo "<a href='Conflict-driver.php?id=".$row['incidentID']." type='button' class='btn btn-theme btn-sm'>Add Response Mechanism</a>";
+echo "<a href='response.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Add Response Mechanism</a>";
 }elseif ($row['risk'] == 0) {
 // code...
 echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Submit conflict drivers first!' type='button' class='btn btn-theme btn-sm'>Add Response Mechanism </a>";
-} ?> 
+}elseif ($row['response']==1) {
+	echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Evidence already submitted' type='button' class='btn disabled btn-success btn-sm' disabled><i class='far fa-check-circle'></i> Submitted</a>";
+}
+
+ ?> 
 <?php 
 echo "</td>";
 echo "</tr>";
@@ -87,7 +91,7 @@ echo "</tr>";
 <!-- BEGIN btn-scroll-top -->
 <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
 <!-- END btn-scroll-top -->
-<!-- BEGIN theme-panel -->
+<!-- BEGIN theme-panel --> 
 <div class="theme-panel">
 <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
 <div class="theme-panel-content">

@@ -38,25 +38,27 @@
 <?php  
 $tableid = "qtnID";
 $tableName = "indicators";
-$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.conflict, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
+$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.risk, incident.conflict, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
 echo "<tr>";
 echo "<td>".$row['incidentID']."</td>";
-echo "<td>".$row['iname']."</td>";
+echo "<td>".$row['iname']."</td>"; 
 echo "<td>".$row['severity']."</td>";
 echo "<td>".$row['date1']."</td>";
 echo "<td>                                                       
 <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' >".$row['status']."</a>
 </td>";
 echo "<td> "; ?>
-<?php if ($row['conflict'] == 1) {
+<?php if ($row['conflict'] == 1 AND $row['risk'] == 0 ) {
 // code...
-echo "<a href='Conflict-driver.php?id=".$row['incidentID']." type='button' class='btn btn-theme btn-sm'>Add Risk Indicators</a>";
+echo "<a href='risk-indicator.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Add Risk Indicators</a>";
 }elseif ($row['conflict'] == 0) {
 // code...
 echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Submit conflict drivers first!' type='button' class='btn btn-theme btn-sm'>Add Risk Indicators </a>";
+}elseif ($row['risk'] == 1) {
+	echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Evidence already submitted' type='button' class='btn disabled btn-success btn-sm' disabled><i class='far fa-check-circle'></i> Submitted</a>";
 } ?> 
 <?php 
 echo "</td>";

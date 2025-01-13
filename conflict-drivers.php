@@ -6,7 +6,7 @@
 <!-- BEGIN #content -->
 <div id="content" class="app-content">
 <!-- BEGIN container -->
-<div class="container">
+<div class="container"> 
 <!-- BEGIN row -->
 <div class="row justify-content-center">
 <!-- BEGIN col-10 -->
@@ -38,26 +38,40 @@
 <?php  
 $tableid = "qtnID";
 $tableName = "indicators";
-$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.evidence, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
+$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.evidence, incident.conflict, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
 echo "<tr>";
-echo "<td>".$row['incidentID']."</td>";
+echo "<td>".$row['incidentID']."</td>"; 
 echo "<td>".$row['iname']."</td>";
 echo "<td>".$row['severity']."</td>";
 echo "<td>".$row['date1']."</td>";
-echo "<td>                                                       
-<a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' >".$row['status']."</a>
+echo "<td>";  ?>                                                    
+<?php if ($row['status'] == 'complete') {
+	// code...
+	echo "<span aria-label='anchor' class='badge bg-success bg-opacity-20 text-success	' >".strtoupper($row['status'])."</span>
 </td>";
-echo "<td> "; ?>
-<?php if ($row['evidence'] == 1) {
+}elseif($row['status'] == 'incomplete'){
+	echo "<span aria-label='anchor' class='badge bg-warning bg-opacity-20 text-warning' >".strtoupper($row['status'])."</span>
+</td>";
+} 
+echo "<td> ";
+?>      
+
+
+<?php if ($row['evidence'] == 1 AND $row['conflict'] == 0 ) {
 // code...
-echo "<a href='Conflict-driver.php?id=".$row['incidentID']." type='button' class='btn btn-theme btn-sm'>Add Conflict Drivers</a>";
+echo "<a href='Conflict-driver.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Add Conflict Drivers</a>";
 }elseif ($row['evidence'] == 0) {
 // code...
 echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Submit evidence first!' type='button' class='btn bg-danger-subtle  btn-sm'>Add Conflict Drivers </a>";
-} ?> 
+}elseif ($row['conflict'] == 1) {
+	echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Evidence already submitted' type='button' class='btn disabled btn-success btn-sm' disabled><i class='far fa-check-circle'></i> Submitted</a>";
+}
+
+
+ ?> 
 <?php 
 echo "</td>";
 echo "</tr>";

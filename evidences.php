@@ -67,7 +67,10 @@ echo "<a href='evidence.php?id=".$row['incidentID']."' type='button' class='btn 
 }elseif ($row['evidence'] == 1) {
 // code...
 echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Evidence already submitted' type='button' class='btn disabled btn-success btn-sm' disabled><i class='far fa-check-circle'></i> Uploaded</a>";
-} ?> 
+}
+
+
+ ?> 
 <?php 
 echo "</td>";
 
