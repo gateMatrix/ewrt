@@ -129,7 +129,7 @@ echo "
 <select class="form-select" id="example-select" class="choices form-select" name="role">
 
     <option value="admin">Admin</option>
-    <option value="officer">Project Officer</option>
+    <option value="manager">Project Officer</option>
     <option value="monitor">Peace Monitor</option>
 
     

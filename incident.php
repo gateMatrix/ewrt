@@ -43,7 +43,7 @@ $sql = "SELECT * FROM users WHERE role='officer' AND district='$districtid' ";
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result);
 $phone = $row['phone'];
-echo "<h1>Godwin</h1>";
+
 $message = "There is a new incident that require your urgent attention.";
 
 $sql = "INSERT INTO incident (incidentID, name, incidentType, village, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$village', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
