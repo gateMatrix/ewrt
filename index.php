@@ -25,7 +25,11 @@
 <!-- BEGIN login-content -->
 <div class="login-content">
 <form action="" method="POST" >
-	<h1 class="text-center">Sign In</h1>
+	<img style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;" src="assets/img/signin-logo.png">
+
 	<div class="text-muted text-center mb-4">
 		Early Warning Reporting Tool
 	</div> 
