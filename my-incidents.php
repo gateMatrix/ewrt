@@ -49,7 +49,7 @@ echo "<td>".$row['date1']."</td>";
 echo "<td>                                                       
 <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' >".$row['status']."</a>
 </td>";
-echo "<td> <a href='Conflict-driver.php?id=".$row['incidentID']." type='button' class='btn btn-theme btn-sm'>View Details</a></td>";
+echo "<td> <a href='incidentreport.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>View Details</a></td>";
 echo "</tr>";
 }
 ?>

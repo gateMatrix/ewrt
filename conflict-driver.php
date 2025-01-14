@@ -48,8 +48,21 @@ echo "
 } }
 ?>
 <h1 class="page-header">
-<?php // echo $_GET['id']; ?> <br/><small>Identify the potential causes or underlying factors of the violence.</small>
-</h1>
+<?php
+
+$incident       = $_GET['id'];
+$monitor        = $_SESSION['id']; 
+$sql            = "SELECT * FROM incident WHERE incidentID='$incident' ";
+$result         = mysqli_query($con, $sql);
+$row            = mysqli_fetch_array($result);
+
+if (isset($_GET['id'])){
+    echo '<h1 class="page-header">';
+    echo "Incident #".$_GET['id'];
+    echo ' <br/><small>'.$row['name'].'</small>';
+    echo "</h1>";
+}
+    ?>
 
 <hr class="mb-4">
 

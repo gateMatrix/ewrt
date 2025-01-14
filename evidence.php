@@ -11,7 +11,7 @@
 <div class="row justify-content-center">
 <!-- BEGIN col-11 -->
 <div class="col-xl-11">
-<!-- BEGIN row -->
+<!-- BEGIN row --> 
 <div class="row">
 <!-- BEGIN col-9 -->
 <div class="col-xl-12">
@@ -24,72 +24,79 @@ $monitor        = $_SESSION['id'];
 $sql            = "SELECT * FROM incident WHERE incidentID='$incident' ";
 $result         = mysqli_query($con, $sql);
 $row            = mysqli_fetch_array($result);
-$number         = $row['incidentID'];
-echo "#".$number."</h1>";
-echo "<p>".$row['name']."</p>";
-?>
 
+if (isset($_GET['id'])){
+    echo '<h1 class="page-header">';
+    echo "Incident #".$_GET['id'];
+    echo ' <br/><small>'.$row['name'].'</small>';
+    echo "</h1>";
+}
+    ?>
 
-<?php 
-if (isset($_POST['newincident'])){
+<?php
+if (isset($_POST["submit"])) {
+    $incidentID = $_POST['incidentID'];
+    $status             = "1";
+    $stmt = $con->prepare("INSERT INTO files (incidentID, file_name) VALUES (?, ?)");
+    $stmt->bind_param("ss", $incidentID, $imagePath);
+    $uploadedImages = $_FILES['images'];
 
-$name 			= $_POST["name"];
-$incidentType 	= $_POST["incidentType"];
-$village 		= $_POST["village"];
-$severity 		= $_POST["severity"];
-$injured 		= $_POST["injured"];
-$fatalities 	= $_POST["fatalities"];
-$perpetrators 	= $_POST["perpetrators"];
- 
-$date=date_create($_POST['date']);
-$date1 = date_format($date,"Y-m-d");
-
-$monitor 		= $_SESSION['id']; 
-$length = 6;
-$incidentID = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-
-$sql = "SELECT * FROM users WHERE userID=$monitor ";
-$result = mysqli_query($con, $sql);
-$row = mysqli_fetch_array($result);
-$phone = $row['phone'];
-echo "<h1>Godwin</h1>";
-
-$sql = "INSERT INTO incident (incidentID, name, incidentType, village, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$village', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
-
-if(mysqli_query($con, $sql)){
-SendSMS('non_customised','bulk', $phone, $message);
-echo "
-    <div class='alert alert-primary alert-dismissible fade show' role='alert'>
-        Incident added successful!
+    foreach ($uploadedImages['name'] as $key => $value) {
+        $targetDir = "uploads/";
+        $fileName = basename($uploadedImages['name'][$key]);
+        $targetFilePath = $targetDir . $fileName;
+        if (file_exists($targetFilePath)) {
+            echo "
+    <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+    Sorry these evidence files already exist!
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
-        </button> 
+        </button>
     </div>";
-
-} else{
-    echo mysqli_error($con);
-} }
+        } else {
+            if (move_uploaded_file($uploadedImages["tmp_name"][$key], $targetFilePath)) {
+                $imagePath = $targetFilePath;
+                $stmt->execute();
+                $sql2 = "UPDATE incident SET evidence='$status' WHERE incidentID='$incidentID' ";
+                mysqli_query($con, $sql2);
+                echo "
+    <div class='alert alert-primary alert-dismissible fade show' role='alert'>"."The file " . $fileName . " has been uploaded successfully."."
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
+        </button>
+    </div>";
+               
+            } else {
+                echo "
+    <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+    Sorry there was an error uploading your evidence files!
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
+        </button>
+    </div>";
+            }
+        }
+    }
+    $stmt->close();
+    $con->close();
+}
 ?>
 <!-- BEGIN #formControls -->
 <div id="formControls" class="mb-5">
 <div class="card">
 <div class="card-body pb-2">
-<form action="" method="POST"> 
+<form action="" method="POST" enctype="multipart/form-data"> 
 <div class="row"> 
 <div class="mb-3">
-	<label class="form-label" for="multipleFile">Photo Evidence</label>
-	<input type="file" name="photos" class="form-control" id="multipleFile" multiple>
-</div>
+	<label class="form-label" for="multipleFile">Evidence Files</label>
+	<input type="file" name="images[]" class="form-control" id="multipleFile" multiple>
 </div>
 
-<div class="row"> 
 <div class="mb-3">
-    <label class="form-label" for="multipleFile">Audio Evidence</label>
-    <input type="file" name="audios" class="form-control" id="multipleFile" multiple>
+    <input hidden type="text" name="incidentID" class="form-control" 
+    value="<?php echo $_GET['id']; ?>">
 </div>
 </div>
 
 <div class="form-group mb-3">
-	<button type="submit" name="newincident" class="btn btn-theme btn"><i class="fa fa-upload "></i> Upload Evidence</button>
+	<button type="submit" name="submit" value="UPLOAD" class="btn btn-theme btn"><i class="fa fa-upload "></i> Upload Evidence</button>
 </div>
 
 </form>

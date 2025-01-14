@@ -62,7 +62,7 @@ echo "<td> ";
 
 <?php if ($row['evidence'] == 1 AND $row['conflict'] == 0 ) {
 // code...
-echo "<a href='Conflict-driver.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Add Conflict Drivers</a>";
+echo "<a href='conflict-driver.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Add Conflict Drivers</a>";
 }elseif ($row['evidence'] == 0) {
 // code...
 echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Submit evidence first!' type='button' class='btn bg-danger-subtle  btn-sm'>Add Conflict Drivers </a>";
