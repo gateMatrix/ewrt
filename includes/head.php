@@ -14,7 +14,7 @@ session_destroy();
 header("Location: index.php");
 }
 
-
+include "sms.php";
 include "dbhandle.php";
 ?>
 <!DOCTYPE html>

@@ -51,6 +51,7 @@ $fullname = $arr = explode(' ',trim($user["fullname"]));
 $_SESSION['user'] = $fullname[0];
 $_SESSION['role'] = $user["role"];
 $_SESSION['id'] = $user["userID"];
+$_SESSION['district'] = $user["district"];
 
 $lastLogin = (date("Y/m/d h:i:s a"));
 $sql = "UPDATE users SET lastlogin='$lastLogin' WHERE username='$username'";

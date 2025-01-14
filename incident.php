@@ -4,7 +4,7 @@
 <?php include "includes/menu.php"; ?>
 
 <!-- BEGIN #content -->
-<div id="content" class="app-content">
+<div id="content" class="app-content"> 
 <!-- BEGIN container -->
 <div class="container">
 <!-- BEGIN row -->
@@ -30,19 +30,21 @@ $severity 		= $_POST["severity"];
 $injured 		= $_POST["injured"];
 $fatalities 	= $_POST["fatalities"];
 $perpetrators 	= $_POST["perpetrators"];
- 
+  
 $date=date_create($_POST['date']);
 $date1 = date_format($date,"Y-m-d");
 
 $monitor 		= $_SESSION['id']; 
+$districtid 	= $_SESSION['district']; 
 $length = 6;
 $incidentID = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
-$sql = "SELECT * FROM users WHERE userID=$monitor ";
+$sql = "SELECT * FROM users WHERE role='officer' AND district='$districtid' ";
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result);
 $phone = $row['phone'];
 echo "<h1>Godwin</h1>";
+$message = "There is a new incident that require your urgent attention.";
 
 $sql = "INSERT INTO incident (incidentID, name, incidentType, village, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$village', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
 
