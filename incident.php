@@ -25,7 +25,7 @@ if (isset($_POST['newincident'])){
 
 $name 			= $_POST["name"];
 $incidentType 	= $_POST["incidentType"];
-$village 		= $_POST["village"];
+$parish 		= $_POST["parish"];
 $severity 		= $_POST["severity"];
 $injured 		= $_POST["injured"];
 $fatalities 	= $_POST["fatalities"];
@@ -46,7 +46,7 @@ $phone = $row['phone'];
 
 $message = "There is a new incident that require your urgent attention.";
 
-$sql = "INSERT INTO incident (incidentID, name, incidentType, village, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$village', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
+$sql = "INSERT INTO incident (incidentID, name, incidentType, parish, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$parish', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
 
 if(mysqli_query($con, $sql)){
 SendSMS('non_customised','bulk', $phone, $message);
@@ -85,14 +85,14 @@ echo "
 </div>
 <div class="col-md-6">
 <div class="mb-3">
-	<label class="form-label">Location of Incident (Village)</label>
-    <select class="selectpicker form-control" id="ex-search"  name="village">
+	<label class="form-label">Location of Incident (Parish)</label>
+    <select class="selectpicker form-control"  name="parish">
         <?php 
-        $sql = "SELECT * FROM village";
+        $sql = "SELECT * FROM parishes";
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                        echo '<option value='.$row['villageID'].'>' 
+                        echo '<option value='.$row['parishID'].'>' 
                         . $row['name']. '</option>';
                 }
                 mysqli_free_result($result);

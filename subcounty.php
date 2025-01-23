@@ -17,7 +17,7 @@
 <div class="col-xl-12">
 <div class="row">
 	<div class="col-9">
-	<h4 class="page-header">Constituencies</h4>
+	<h4 class="page-header">Sub County</h4>
 	</div>
 	<div class="col-3">
 	</div>
@@ -28,7 +28,7 @@ if (isset($_POST['register'])){
 
 $name = $_POST["name"];
 $district = $_POST["district"];
-$sql = "INSERT INTO constituency (name, district) VALUES ('$name', '$district')";
+$sql = "INSERT INTO subcounty (name, district) VALUES ('$name', '$district')";
 
 
 if(mysqli_query($con, $sql)){
@@ -63,9 +63,9 @@ echo "
 		<tr> 
 			<?php  
 
-			$tableid = "constituencyID";
-			$tableName = "constituency";
-			$sql = "SELECT constituency.constituencyID, district.districtID, constituency.name AS cname, district.name AS dname   FROM constituency INNER JOIN district on constituency.district=district.districtID";
+			$tableid = "subcountyID";
+			$tableName = "subcounty";
+			$sql = "SELECT subcounty.subcountyID, district.districtID, subcounty.name AS cname, district.name AS dname   FROM subcounty INNER JOIN district on subcounty.district=district.districtID";
 			$result = mysqli_query($con, $sql);
 
 			while($row = mysqli_fetch_array($result)) {
@@ -76,7 +76,7 @@ echo "
     <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' data-bs-original-title='Edit'>
         <i class='fa fa-edit'></i>
     </a>
-    <a onclick='return checkDelete()' href='includes/delete.php?id=".$row['constituencyID']."&t=".$tableName."&tID=".$tableid."' aria-label='anchor' class='btn btn-sm bg-danger-subtle' data-bs-toggle='tooltip' data-bs-original-title='Delete'>
+    <a onclick='return checkDelete()' href='includes/delete.php?id=".$row['subcountyID']."&t=".$tableName."&tID=".$tableid."' aria-label='anchor' class='btn btn-sm bg-danger-subtle' data-bs-toggle='tooltip' data-bs-original-title='Delete'>
         <i class='fa fa-trash'></i>
     </a>
 </td>";
@@ -106,8 +106,8 @@ echo "
 <div class="row">
 <div class="col-md-12"> 
 <div class="form-group mb-3">
-<label class="form-check-label" for="defaultCheck1">Constituency Name</label>
-<input type="text" placeholder="Enter constituency name" class="form-control" name="name" >
+<label class="form-check-label" for="defaultCheck1">Sub County Name</label>
+<input type="text" placeholder="Enter Sub County name" class="form-control" name="name" >
 </div>
 <div class="mb-3">
     <select class="form-select" id="example-select" class="choices form-select" name="district">
@@ -134,7 +134,7 @@ echo "
 </div>
 <div class="form-group mb-3" style="padding-top: 10px;">
 
-<button type="submit" name="register" class="btn btn-theme btn">Add Constituency</button>
+<button type="submit" name="register" class="btn btn-theme btn">Add Sub County</button>
 </div>
 </form>
 	</div>

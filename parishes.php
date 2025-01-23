@@ -17,7 +17,7 @@
 <div class="col-xl-12">
 <div class="row">
 	<div class="col-9">
-	<h4 class="page-header">Villages</h4>
+	<h4 class="page-header">Parishes</h4>
 	</div>
 	<div class="col-3">
 	</div>
@@ -29,7 +29,7 @@ if (isset($_POST['register'])){
 $name = $_POST["name"];
 $constituency = $_POST["constituency"];
 $district = $_POST["district"];
-$sql = "INSERT INTO village (name, constituency, district) VALUES ('$name', '$constituency', '$district')";
+$sql = "INSERT INTO parishes (name, constituency, district) VALUES ('$name', '$constituency', '$district')";
 
 
 if(mysqli_query($con, $sql)){
@@ -65,21 +65,21 @@ echo "
 		<tr> 
 			<?php  
 
-			$tableid = "villageID";
-			$tableName = "village";
-			$sql = "SELECT village.name AS vname, village.villageID, constituency.constituencyID, district.districtID, constituency.name AS cname, district.name AS dname   FROM village INNER JOIN constituency on village.constituency=constituency.constituencyID INNER JOIN district on village.district=district.districtID";
+			$tableid = "parishID";
+			$tableName = "parishes";
+			$sql = "SELECT parishes.name AS parishname, parishes.parishID, subcounty.subcountyID, district.districtID, subcounty.name AS subname, district.name AS dname   FROM parishes INNER JOIN subcounty on parishes.subcounty=subcounty.subcountyID INNER JOIN district on parishes.district=district.districtID";
 			$result = mysqli_query($con, $sql);
 
 			while($row = mysqli_fetch_array($result)) {
 				  echo "<tr>";
-				  echo "<td>".$row['vname']."</td>";
-			      echo "<td>".$row['cname']."</td>";
+				  echo "<td>".$row['parishname']."</td>";
+			      echo "<td>".$row['subname']."</td>";
 			      echo "<td>".$row['dname']."</td>";
 			      echo "<td>                                                       
     <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' data-bs-original-title='Edit'>
         <i class='fa fa-edit'></i>
     </a>
-    <a onclick='return checkDelete()' href='includes/delete.php?id=".$row['villageID']."&t=".$tableName."&tID=".$tableid."' aria-label='anchor' class='btn btn-sm bg-danger-subtle' data-bs-toggle='tooltip' data-bs-original-title='Delete'>
+    <a onclick='return checkDelete()' href='includes/delete.php?id=".$row['parishID']."&t=".$tableName."&tID=".$tableid."' aria-label='anchor' class='btn btn-sm bg-danger-subtle' data-bs-toggle='tooltip' data-bs-original-title='Delete'>
         <i class='fa fa-trash'></i>
     </a>
 </td>";
@@ -109,19 +109,19 @@ echo "
 <div class="row">
 <div class="col-md-12"> 
 <div class="form-group mb-3">
-<label class="form-check-label" for="defaultCheck1">Constituency Name</label>
+<label class="form-check-label" for="defaultCheck1">Parish Name</label>
 <input type="text" placeholder="Enter constituency name" class="form-control" name="name" >
 </div>
 <div class="mb-3">
     <select class="form-select" id="example-select" class="choices form-select" name="constituency">
-        <option>Select Constituency</option>
+        <option>Select Sub County</option>
         <?php 
 
-        $sql = "SELECT * FROM constituency";
+        $sql = "SELECT * FROM subcounty";
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                        echo '<option value='.$row['constituencyID'].'>' 
+                        echo '<option value='.$row['name'].'>' 
                         . $row['name']. '</option>';
                 }
                 mysqli_free_result($result);
@@ -142,7 +142,7 @@ echo "
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                        echo '<option value='.$row['districtID'].'>' 
+                        echo '<option value='.$row['name'].'>' 
                         . $row['name']. '</option>';
                 }
                 mysqli_free_result($result);
@@ -158,7 +158,7 @@ echo "
 </div>
 <div class="form-group mb-3" style="padding-top: 10px;">
 
-<button type="submit" name="register" class="btn btn-theme btn">Add Village</button>
+<button type="submit" name="register" class="btn btn-theme btn">Add Parish</button>
 </div>
 </form>
 	</div>

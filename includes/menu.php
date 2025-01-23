@@ -70,13 +70,13 @@
 								</a>
 							</div>
 							<div class="menu-item">
-								<a href="constituencies.php" class="menu-link">
-									<span class="menu-text">Constituencies</span>
+								<a href="subcounty.php" class="menu-link">
+									<span class="menu-text">Sub County</span>
 								</a>
 							</div>
 							<div class="menu-item">
-								<a href="villages.php" class="menu-link">
-									<span class="menu-text">Villages</span> 
+								<a href="parishes.php" class="menu-link">
+									<span class="menu-text">Parishes</span> 
 								</a>
 							</div>
 							<div class="menu-item">

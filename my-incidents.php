@@ -28,28 +28,26 @@
 			<th>Type</th>
 			<th>Severity</th>
 			<th>Date</th>
-			<th>Status</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 
 <?php  
+
+
 $tableid = "qtnID";
 $tableName = "indicators";
-$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.evidence, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
+$sql = "SELECT * FROM incident WHERE evidence='1' AND conflict='1' AND risk='1' AND response='1' ";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
 echo "<tr>";
 echo "<td>".$row['incidentID']."</td>";
-echo "<td>".$row['iname']."</td>";
+echo "<td>".$row['incidentType']."</td>";
 echo "<td>".$row['severity']."</td>";
 echo "<td>".$row['date1']."</td>";
-echo "<td>                                                       
-<a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' >".$row['status']."</a>
-</td>";
-echo "<td> <a href='incidentreport.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>View Details</a></td>";
+echo "<td> <a href='incident-report.php?id=".$row['incidentID']."&loc=".$row['parish']."&monitor=".$row['monitor']."' type='button' class='btn btn-theme btn-sm'>Generate Report</a></td>";
 echo "</tr>";
 }
 ?>
