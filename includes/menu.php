@@ -49,7 +49,7 @@
 					<div class="menu-item">
 						<a href="my-incidents.php" class="menu-link">
 							<span class="menu-icon"><i class="far fa-folder-open"></i></span>
-							<span class="menu-text">My Incidents</span>
+							<span class="menu-text">Completed Incidents</span>
 						</a>
 					</div>
 
