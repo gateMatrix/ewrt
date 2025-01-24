@@ -43,11 +43,11 @@ $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
 echo "<tr>";
-echo "<td>".$row['incidentID']."</td>";
+echo "<td>".$row['incidentID']."</td>"; 
 echo "<td>".$row['incidentType']."</td>";
 echo "<td>".$row['severity']."</td>";
 echo "<td>".$row['date1']."</td>";
-echo "<td> <a href='incident-report.php?id=".$row['incidentID']."&loc=".$row['parish']."&monitor=".$row['monitor']."' type='button' class='btn btn-theme btn-sm'>Generate Report</a></td>";
+echo "<td> <a href='close-incident.php?id=".$row['incidentID']."&loc=".$row['parish']."&monitor=".$row['monitor']."' type='button' style='margin-left: 5px;' class='btn btn-success btn-sm'>Close Incident</a></td>";
 echo "</tr>";
 }
 ?>

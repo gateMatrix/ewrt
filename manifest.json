@@ -1,0 +1,29 @@
+
+{
+  /* Single screenshot */
+"screenshots": [
+  {
+    "src": "desktop.webp",
+    "sizes": "1280x720",
+    "type": "image/webp"
+  }
+],
+  "short_name": "CAF EWRT",
+  "name": "CAF EWRT",
+  "icons": [
+    { 
+      "src": "assets/img/favicon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/img/favicon2.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "http://localhost/ewrt",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "theme_color": "#3367D6"
+}

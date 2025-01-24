@@ -20,11 +20,11 @@
 	<h4 class="page-header">Incident Report</h4>
 	</div>
 	<div class="col-3">
-	<button onclick="printDiv('printableArea')" style="float: right;" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modaluser">Print Report</button>
+	<button onclick="downloadPDF()" style="float: right;" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modaluser"><i class="far fa-lg fa-fw me-2 fa-file-pdf"></i> Download Report</button>
 	</div>
 </div>
 
-<div id="printableArea" style="padding: 20px 50px 20px 50px; " class="card">
+<div id="myBillingArea" style="padding: 20px 20px 20px 20px; " class="card">
 <div class="card-body pb-2">
 
 <img class="center-photo" src="assets/img/report-logos.png">
@@ -38,6 +38,7 @@
 $incident = $_GET['id'];
 $location = $_GET['loc'];
 $monitor = $_GET['monitor'];
+$off = $_GET['off'];
 
 $sql2 = "SELECT * FROM location WHERE locationID='$location' ";
 $result2 = mysqli_query($con, $sql2);
@@ -46,6 +47,11 @@ $row2 = mysqli_fetch_array($result2);
 $sql3 = "SELECT * FROM users WHERE userID='$monitor' ";
 $result3 = mysqli_query($con, $sql3);
 $row3 = mysqli_fetch_array($result3);
+
+$sql3 = "SELECT * FROM users WHERE userID='$off' ";
+$result3 = mysqli_query($con, $sql3);
+$row3 = mysqli_fetch_array($result3);
+$officer = $row3['fullname'];
 
 $sql = "SELECT * FROM incident INNER JOIN conflictdrivers ON incident.incidentID = conflictdrivers.incidentID INNER JOIN riskindicator ON incident.incidentID = riskindicator.incidentID INNER JOIN responseindicator ON incident.incidentID=responseindicator.incidentID WHERE incident.incidentID='$incident' ";
 $result = mysqli_query($con, $sql);
@@ -70,7 +76,7 @@ echo "<p>".$row['name']."</p>";
 	<div class="card-body">
 	<div class="response">
 	<p class="qtn">Type of Incident</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['incidentType']; ?></p>
+	<p class="answer mb-1"><?php echo $row['incidentType']; ?></p>
 	</div>
 	<div class="response">
 	<p class="qtn">Severity of the incident</p>
@@ -88,16 +94,16 @@ echo "<p>".$row['name']."</p>";
 	</div>
 	<div class="response">
 	<p class="qtn">Number of casualities</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['injured']." Injured & ".$row['fatalities']." Fatalities"; ?></p>
+	<p class="answer mb-1"><?php echo $row['injured']." Injured & ".$row['fatalities']." Fatalities"; ?></p>
 	</div>
 
 	<div class="response">
 	<p class="qtn">Perpetrators</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['perpetrators']; ?></p>
+	<p class="answer mb-1"><?php echo $row['perpetrators']; ?></p>
 	</div>
 	<div class="response-last">
 	<p class="qtn">Evidence</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['evidence']; ?></p>
+	<p class="answer mb-1"><?php echo $row['evidence']; ?></p>
 	</div>
 	</div>
 	</div>
@@ -109,28 +115,28 @@ echo "<p>".$row['name']."</p>";
 	<div class="card-body">
 	<div class="response">
 	<p class="qtn">Political tension</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['politicalTension']; ?></p>
+	<p class="answer mb-1"><?php echo $row['politicalTension']; ?></p>
 	</div>
 	<div class="response">
 	<p class="qtn">Economic Factor</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['economicFactor']; ?></p>
+	<p class="answer mb-1"><?php echo $row['economicFactor']; ?></p>
 	</div>
 	<div class="response">
 	<p class="qtn">Social/Ethnic Issues</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['socialIssue']; ?></p>
+	<p class="answer mb-1"><?php echo $row['socialIssue']; ?></p>
 	</div>
 
 	<div class="response">
 	<p class="qtn">Grievancies/Unresolved Issues</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['grievance']; ?></p>
+	<p class="answer mb-1"><?php echo $row['grievance']; ?></p>
 	</div>
 	<div class="response">
 	<p class="qtn">External Influence</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['externalInfluence']; ?></p>
+	<p class="answer mb-1"><?php echo $row['externalInfluence']; ?></p>
 	</div>
 	<div class="response-last">
 	<p class="qtn">Gender-Based Violence</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['gbv']; ?></p>
+	<p class="answer mb-1"><?php echo $row['gbv']; ?></p>
 	</div>
 	</div>
 	</div>
@@ -142,20 +148,20 @@ echo "<p>".$row['name']."</p>";
 	<div class="card-body">
 	<div class="response">
 	<p class="qtn">Weapon Availability</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['weapon']; ?></p>
+	<p class="answer mb-1"><?php echo $row['weapon']; ?></p>
 	</div>
 	<div class="response">
 	<p class="qtn">Mobilization of Groups</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['mobilization']; ?></p>
+	<p class="answer mb-1"><?php echo $row['mobilization']; ?></p>
 	</div>
 	<div class="response">
 	<p class="qtn">Impact to Infrastructure</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['impact']; ?></p>
+	<p class="answer mb-1"><?php echo $row['impact']; ?></p>
 	</div>
 
 	<div class="response-last">
 	<p class="qtn">Rumors or Misinformation</p>
-	<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['rumors']; ?></p>
+	<p class="answer mb-1"><?php echo $row['rumors']; ?></p>
 	</div>
 
 	</div>
@@ -175,29 +181,29 @@ echo "<p>".$row['name']."</p>";
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Security Force Presence and Response</p>
-			<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['securityForce']; ?></p>
+			<p class="answer mb-1"><?php echo $row['securityForce']; ?></p>
 			</div>
 			<div class="response">
 			<p class="qtn">Emergency Services Availability and level of preparedness</p>
-			<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['emergencyService']; ?></p>
+			<p class="answer mb-1"><?php echo $row['emergencyService']; ?></p>
 			</div>
 			<div class="response-last">
 			<p class="qtn">Prevention of Conflict</p>
-			<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['prevention']; ?></p>
+			<p class="answer mb-1"><?php echo $row['prevention']; ?></p>
 			</div>
 		</div>
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Humanitarian Aid needed</p>
-			<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['humanitarian']; ?></p>
+			<p class="answer mb-1"><?php echo $row['humanitarian']; ?></p>
 			</div>
 			<div class="response">
 			<p class="qtn">Effectiveness of Response</p>
-			<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['effectiveness'] ?? null; ?></p>
+			<p class="answer mb-1"><?php echo $row['effectiveness'] ?? null; ?></p>
 			</div>
 			<div class="response-last">
 			<p class="qtn">Peace Buidling Interventions</p>
-			<p class="card-subtitle mb-1 text-body text-opacity-50"><?php echo $row['peaceBuilding']; ?></p>
+			<p class="answer mb-1"><?php echo $row['peaceBuilding']; ?></p>
 			</div>
 		</div>
 
@@ -211,10 +217,10 @@ echo "<p>".$row['name']."</p>";
 	<div class=" col-12" style="background: #c9d2e3; margin: 0px !important;">
 	<div class="card-body">
 		<h5 class="card-title">Actions Taken</h5>
-		<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+		<p class="card-text"><?php echo $row['action']; ?></p>
 		<div>
 			<span class="badge bg-primary">Submitted By <?php echo $row3['fullname']; ?></span>
-			<span class="badge bg-primary">Incident Closed by</span>
+			<span class="badge bg-primary">Incident Closed by <?php echo $officer; ?></span>
 		</div>
 	</div>
 	</div>
@@ -284,16 +290,23 @@ Adjust the appearance to reduce glare and give your eyes a break.
 </div>
 <!-- END #app -->
 <script type="text/javascript">
-	function printDiv(divId) {
-     var printContents = document.getElementById(divId).innerHTML;
-     var originalContents = document.body.innerHTML;
+	window.jsPDF = window.jspdf.jsPDF;
+var docPDF = new jsPDF();
 
-     document.body.innerHTML = printContents;
+function downloadPDF(invoiceNo){
 
-     window.print();
-
-     document.body.innerHTML = originalContents;
+    var elementHTML = document.querySelector("#myBillingArea");
+    docPDF.html(elementHTML, {
+        callback: function(docPDF) {
+            docPDF.save(invoiceNo+'.pdf');
+        },
+        x: 15,
+        y: 15,
+        width: 170,
+        windowWidth: 650
+    });
 }
 </script>
+
 
 <?php include "includes/scripts.php" ?>

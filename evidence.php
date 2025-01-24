@@ -19,6 +19,7 @@
 <h1 class="page-header">
 <?php
 
+
 $incident       = $_GET['id'];
 $monitor        = $_SESSION['id']; 
 $sql            = "SELECT * FROM incident WHERE incidentID='$incident' ";
@@ -35,11 +36,24 @@ if (isset($_GET['id'])){
 
 <?php
 if (isset($_POST["submit"])) {
+    $audio          = $_POST['audio'] ?? null;
+    $video          = $_POST['video'] ?? null;
+    $photo          = $_POST['photo'] ?? null;
+    $document       = $_POST['document'] ?? null;
+    $others         = $_POST['others'] ?? null;
+    $none           = $_POST['none'] ?? null;
+
+    $evidences      = $audio." ".$video." ".$photo." ".$document." ".$others." ".$none;
+
     $incidentID = $_POST['incidentID'];
     $status             = "1";
     $stmt = $con->prepare("INSERT INTO files (incidentID, file_name) VALUES (?, ?)");
     $stmt->bind_param("ss", $incidentID, $imagePath);
-    $uploadedImages = $_FILES['images'];
+    $uploadedImages = $_FILES['images']; 
+
+    $stmt2 = $con->prepare("UPDATE incident SET evidences=? WHERE incidentID=?");
+    $stmt2->bind_param('ss', $evidences, $incident);
+    $stmt2->execute();
 
     foreach ($uploadedImages['name'] as $key => $value) {
         $targetDir = "uploads/";
@@ -83,10 +97,49 @@ if (isset($_POST["submit"])) {
 <div class="card">
 <div class="card-body pb-2">
 <form action="" method="POST" enctype="multipart/form-data"> 
+<div class="row">
+    <div class="col-4">
+        <div class="form-group mb-4">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Video" name="video">
+            <label class="form-check-label" for="defaultCheck1">Video</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Audio" name="audio">
+            <label class="form-check-label" for="defaultCheck2">Audio</label>
+        </div>
+    </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group mb-4">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Photo" name="photo">
+            <label class="form-check-label" for="defaultCheck1">Photo</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="document" value="Document">
+            <label class="form-check-label" for="defaultCheck2">Document</label>
+        </div>
+    </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group mb-4">
+        <div class="form-check">
+            <input class="form-check-input" name="others" type="checkbox" value="Other media" >
+            <label class="form-check-label">Other media</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="No Evidence" name="none">
+            <label class="form-check-label">No Evidence</label>
+        </div>
+    </div>
+    </div>
+    
+</div>
 <div class="row"> 
 <div class="mb-3">
 	<label class="form-label" for="multipleFile">Evidence Files</label>
-	<input type="file" name="images[]" class="form-control" id="multipleFile" multiple>
+	<input required type="file" name="images[]" class="form-control" id="multipleFile" multiple>
 </div>
 
 <div class="mb-3">

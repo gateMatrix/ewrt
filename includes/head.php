@@ -30,6 +30,9 @@ include "dbhandle.php";
 <link href="./assets/css/vendor.min.css" rel="stylesheet">
 <link href="./assets/css/styles.css" rel="stylesheet">
 <link href="./assets/css/app.min.css" rel="stylesheet">
+<link rel="manifest" href="./manifest.json">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- ================== END core-css ================== -->
 
 <!-- ================== BEGIN page-css ================== -->

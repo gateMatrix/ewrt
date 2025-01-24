@@ -97,13 +97,28 @@
 							<span class="menu-text">Users</span>
 						</a>
 					</div>
-
-					<div class="menu-item">
+					<div class="menu-item has-sub">
 						<a href="#" class="menu-link">
-							<span class="menu-icon"><i class="fa fa-chart-pie"></i></span>
+							<span class="menu-icon">
+								<i class="fa fa-chart-pie"></i>
+							</span>
 							<span class="menu-text">Reports</span>
+							<span class="menu-caret"><b class="caret"></b></span>
 						</a>
+						<div class="menu-submenu">
+							<div class="menu-item">
+								<a href="closed-incidents.php" class="menu-link">
+									<span class="menu-text">Incident Report</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a href="#" class="menu-link">
+									<span class="menu-text">Cummulative</span>
+								</a>
+							</div>
+						</div>
 					</div>
+
 
 					<div class="p-3 px-4 mt-auto hide-on-minified">
 						<a href="https://creationsforumafrika.org" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
