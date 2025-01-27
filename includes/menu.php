@@ -121,6 +121,12 @@ if ($_SESSION['role'] == 'admin' ) {
 							</div>
 						</div>
 					</div>
+					<div class="menu-item">
+						<a href="profile.php" class="menu-link">
+							<span class="menu-icon"><i class="fa fa-users"></i></span>
+							<span class="menu-text">Profile</span>
+						</a>
+					</div>
 
 
 					<div class="p-3 px-4 mt-auto hide-on-minified">
@@ -225,6 +231,13 @@ if ($_SESSION['role'] == 'admin' ) {
 						</div>
 					</div>
 
+					<div class="menu-item">
+						<a href="profile.php" class="menu-link">
+							<span class="menu-icon"><i class="fa fa-users"></i></span>
+							<span class="menu-text">Profile</span>
+						</a>
+					</div>
+
 
 					<div class="p-3 px-4 mt-auto hide-on-minified">
 						<a href="https://creationsforumafrika.org" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
@@ -309,7 +322,7 @@ if ($_SESSION['role'] == 'admin' ) {
 
 
 					<div class="menu-item">
-						<a href="#" class="menu-link">
+						<a href="profile.php" class="menu-link">
 							<span class="menu-icon"><i class="fa fa-users"></i></span>
 							<span class="menu-text">Profile</span>
 						</a>
