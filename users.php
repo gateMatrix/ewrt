@@ -1,6 +1,7 @@
 <?php 
 include "includes/head.php"; 
 
+
 ?>
 <!-- END #header -->
 
@@ -35,7 +36,7 @@ $phone 		= $_POST["phone"];
 $email 		= $_POST["email"];
 $district 	= $_POST["district"];
 $role 		= $_POST["role"];
-$password   = "CAF".mt_rand(10, 1000);
+$password   = "CAF".mt_rand(100, 1000);
 
 $message 	= "Hello ".$fullname.", your CAF-EWRT account has been created with Username: ".$phone." and Password: ".$password;
 
