@@ -123,7 +123,7 @@ if ($_SESSION['role'] == 'admin' ) {
 					</div>
 					<div class="menu-item">
 						<a href="profile.php" class="menu-link">
-							<span class="menu-icon"><i class="fa fa-users"></i></span>
+							<span class="menu-icon"><i class="fa fa-user"></i></span>
 							<span class="menu-text">Profile</span>
 						</a>
 					</div>
@@ -233,7 +233,7 @@ if ($_SESSION['role'] == 'admin' ) {
 
 					<div class="menu-item">
 						<a href="profile.php" class="menu-link">
-							<span class="menu-icon"><i class="fa fa-users"></i></span>
+							<span class="menu-icon"><i class="fa fa-user"></i></span>
 							<span class="menu-text">Profile</span>
 						</a>
 					</div>
@@ -323,7 +323,7 @@ if ($_SESSION['role'] == 'admin' ) {
 
 					<div class="menu-item">
 						<a href="profile.php" class="menu-link">
-							<span class="menu-icon"><i class="fa fa-users"></i></span>
+							<span class="menu-icon"><i class="fa fa-user"></i></span>
 							<span class="menu-text">Profile</span>
 						</a>
 					</div>
