@@ -92,7 +92,7 @@ echo "
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                        echo '<option value='.$row['parishID'].'>' 
+                        echo '<option value='.$row['name'].'>' 
                         . $row['name']. '</option>';
                 }
                 mysqli_free_result($result);
@@ -116,7 +116,7 @@ echo "
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                        echo '<option value='.$row['responseID'].'>' 
+                        echo '<option value='.$row['name'].'>' 
                         . $row['name']. '</option>';
                 }
                 mysqli_free_result($result);
@@ -178,7 +178,7 @@ echo "
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                        echo '<option value='.$row['responseID'].'>' 
+                        echo '<option value='.$row['name'].'>' 
                         . $row['name']. '</option>';
                 }
                 mysqli_free_result($result);

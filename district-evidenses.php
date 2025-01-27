@@ -4,75 +4,83 @@
 <?php include "includes/menu.php"; ?>
 
 <!-- BEGIN #content -->
-<div id="content" class="app-content"> 
+<div id="content" class="app-content">
 <!-- BEGIN container -->
 <div class="container">
 <!-- BEGIN row -->
 <div class="row justify-content-center">
-<!-- BEGIN col-11 -->
+<!-- BEGIN col-10 -->
 <div class="col-xl-11">
 <!-- BEGIN row -->
 <div class="row">
 <!-- BEGIN col-9 -->
 <div class="col-xl-12">
 
-<h1 class="page-header">
-Closing Incident # <?php echo $_GET['id']; ?>
-</h1>
-
-<?php
-//Create new beneficiary
-if (isset($_POST['closeincident'])){
-
-    $incident = $_GET['id'];
-    $action  = $_POST['action'];
-    $officer = $_SESSION['id']; 
-
-    $sql = "UPDATE incident SET action = '$action', closingOfficer = '$officer'  WHERE incidentID='$incident' ";
-
-    if(mysqli_query($con, $sql)){
-        echo "
-        <div class='alert alert-primary alert-dismissible fade show' role='alert'>
-             Incident successfully updated!
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
-            </button>
-        </div>";
-
-        } else{
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-        }
-         
-        // Close connection
-
-
-    }else{
-       
-    }
-    ?>
 <!-- BEGIN #formControls -->
 <div id="formControls" class="mb-5">
 <div class="card">
 <div class="card-body pb-2">
-<form action="" method="POST"> 
-<div class="row"> 
-<div class="col-md-12">
+<table id="datatableDefault" class="table text-nowrap w-100">
 
-	<div class="form-group mb-3">
-			<label class="form-check-label" for="defaultCheck1">What actions have been taken?</label>
-			<br/><br/>
-			<textarea name="action" class="form-control" id="exampleFormControlTextarea1" rows="12"></textarea>
-	</div>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
 
-</div>
-</div>
+        
+<?php  
+$tableid = "qtnID";
+$tableName = "indicators";
+$district = $_SESSION['district'];
+$sql = "SELECT * FROM incident INNER JOIN parishes ON incident.parish = parishes.parishID WHERE district = '$district' ";
+$result = mysqli_query($con, $sql);
+
+while($row = mysqli_fetch_array($result)) {
+echo "<tr>";
+echo "<td>".$row['incidentID']."</td>";
+echo "<td>".$row['incidentType']."</td>";
+echo "<td>".$row['severity']."</td>";
+echo "<td>".$row['date1']."</td>"; 
+echo "<td> "; ?>
+ 
+<?php if ($row['status'] == 'complete') {
+    // code...
+    echo "<span aria-label='anchor' class='badge bg-success bg-opacity-20 text-success  ' >".strtoupper($row['status'])."</span>
+</td>";
+}elseif($row['status'] == 'incomplete'){
+    echo "<span aria-label='anchor' class='badge bg-warning bg-opacity-20 text-warning' >".strtoupper($row['status'])."</span>
+</td>";
+} 
+echo "<td> ";
+?>                                                       
 
 
+<?php if ($row['evidence'] == 0) {
+// code...
+echo "<a href='evidence.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Upload Evidences</a></td>";
+}elseif ($row['evidence'] == 1) {
+// code...
+echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Evidence already submitted' type='button' class='btn disabled btn-success btn-sm' disabled><i class='far fa-check-circle'></i> Uploaded</a>";
+}
 
-<div class="form-group mb-3">
-	<button type="submit" name="closeincident" class="btn btn-theme btn">Close Now</button>
-</div>
 
-</form>
+ ?> 
+<?php 
+echo "</td>";
+
+echo "</tr>";
+}
+?>
+
+    </tbody>
+</table>
 </div>
 </div>
 </div>
@@ -130,86 +138,9 @@ Adjust the appearance to reduce glare and give your eyes a break.
 </div>
 </div>
 </div>
-</div>
+</div> 
 <!-- END theme-panel -->
 </div>
 <!-- END #app -->
-
-	<!-- BEGIN template-upload -->
-	<script id="template-upload" type="text/x-tmpl">
-	{% for (var i=0, file; file=o.files[i]; i++) { %}
-		<tr class="template-upload">
-			<td>
-				<span class="preview d-flex justify-content-center flex-align-center" style="height: 80px"></span>
-			</td>
-			<td>
-				<p class="name mb-1">{%=file.name%}</p>
-				<strong class="error text-danger"></strong>
-			</td>
-			<td>
-				<p class="size mb-2">Processing...</p>
-				<div class="progress progress-sm mb-0 h-10px progress-striped active"><div class="progress-bar progress-bar-primary" style="min-width: 2em; width:0%;"></div></div>
-			</td>
-			<td nowrap>
-				{% if (!i && !o.options.autoUpload) { %}
-					<button class="btn btn-theme btn-sm d-block w-100 start" disabled>
-						<span>Start</span>
-					</button>
-				{% } %}
-				{% if (!i) { %}
-					<button class="btn btn-default btn-sm d-block w-100 cancel mt-2">
-						<span>Cancel</span>
-					</button>
-				{% } %}
-			</td>
-		</tr>
-	{% } %}
-	</script>
-	<!-- END template-upload -->
-	<!-- BEGIN template-download -->
-	<script id="template-download" type="text/x-tmpl">
-	{% for (var i=0, file; file=o.files[i]; i++) { %}
-		<tr class="template-download">
-			<td>
-				<span class="preview d-flex justify-content-center flex-align-center" style="height: 80px">
-					{% if (file.thumbnailUrl) { %}
-						<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-					{% } %}
-				</span>
-			</td>
-			<td>
-				<p class="name">
-					{% if (file.url) { %}
-						<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-					{% } else { %}
-						<span>{%=file.name%}</span>
-					{% } %}
-				</p>
-				{% if (file.error) { %}
-					<div><span class="label label-danger">Error</span> {%=file.error%}</div>
-				{% } %}
-			</td>
-			<td>
-				<span class="size">{%=o.formatFileSize(file.size)%}</span>
-			</td>
-			<td nowrap>
-				{% if (file.deleteUrl) { %}
-					<button class="btn btn-danger btn-sm btn-block delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-						<span>Delete</span>
-					</button>
-					<div class="form-check mt-2">
-						<input type="checkbox" id="{%=file.deleteUrl%}" name="delete" value="1" class="form-check-input toggle">
-						<label for="{%=file.deleteUrl%}" class="form-check-label"></label>
-					</div>
-				{% } else { %}
-					<button class="btn btn-default btn-sm d-block w-100 cancel">
-						<span>Cancel</span>
-					</button>
-				{% } %}
-			</td>
-		</tr>
-	{% } %}
-	</script>
-	<!-- END template-download -->
 
 <?php include "includes/scripts.php" ?>

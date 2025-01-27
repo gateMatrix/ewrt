@@ -16,60 +16,78 @@
 <!-- BEGIN col-9 -->
 <div class="col-xl-12">
 
-<h1 class="page-header">
-Closing Incident # <?php echo $_GET['id']; ?>
+<!--<h1 class="page-header">
+New Incident
 </h1>
+-->
+<?php 
+if (isset($_POST['newincident'])){
 
-<?php
-//Create new beneficiary
-if (isset($_POST['closeincident'])){
+$name 			= $_POST["name"];
+$incidentType 	= $_POST["incidentType"];
+$parish 		= $_POST["parish"];
+$severity 		= $_POST["severity"];
+$injured 		= $_POST["injured"];
+$fatalities 	= $_POST["fatalities"];
+$perpetrators 	= $_POST["perpetrators"];
+  
+$date=date_create($_POST['date']);
+$date1 = date_format($date,"Y-m-d");
 
-    $incident = $_GET['id'];
-    $action  = $_POST['action'];
-    $officer = $_SESSION['id']; 
+$monitor 		= $_SESSION['id']; 
+$districtid 	= $_SESSION['district']; 
+$length = 6;
+$incidentID = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
-    $sql = "UPDATE incident SET action = '$action', closingOfficer = '$officer'  WHERE incidentID='$incident' ";
+$sql = "SELECT * FROM users WHERE role='officer' AND district='$districtid' ";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$phone = $row['phone'];
 
-    if(mysqli_query($con, $sql)){
-        echo "
-        <div class='alert alert-primary alert-dismissible fade show' role='alert'>
-             Incident successfully updated!
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
-            </button>
-        </div>";
+$message = "There is a new incident that require your urgent attention.";
 
-        } else{
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-        }
-         
-        // Close connection
+$sql = "INSERT INTO incident (incidentID, name, incidentType, parish, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$parish', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
 
+if(mysqli_query($con, $sql)){
+SendSMS('non_customised','bulk', $phone, $message);
+echo "
+    <div class='alert alert-primary alert-dismissible fade show' role='alert'>
+        Incident added successful!
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
+        </button> 
+    </div>";
 
-    }else{
-       
-    }
-    ?>
+} else{
+    echo mysqli_error($con);
+} }
+?>
 <!-- BEGIN #formControls -->
 <div id="formControls" class="mb-5">
 <div class="card">
 <div class="card-body pb-2">
-<form action="" method="POST"> 
-<div class="row"> 
-<div class="col-md-12">
+<form action="cumulative-report.php" method="POST"> 
+<div class="row">
 
-	<div class="form-group mb-3">
-			<label class="form-check-label" for="defaultCheck1">What actions have been taken?</label>
-			<br/><br/>
-			<textarea name="action" class="form-control" id="exampleFormControlTextarea1" rows="12"></textarea>
-	</div>
-
+<!-- html -->
+<div class="form-label">
+	<label class="form-label">Select date range</label>
+  <input type="text" class="form-control" name="daterange"  />
+<br/>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
 </div>
 </div>
-
 
 
 <div class="form-group mb-3">
-	<button type="submit" name="closeincident" class="btn btn-theme btn">Close Now</button>
+	<button type="submit" name="newincident" class="btn btn-theme btn">Generate Report</button>
 </div>
 
 </form>
@@ -81,7 +99,7 @@ if (isset($_POST['closeincident'])){
 </div>
 <!-- END col-9-->
 </div>
-<!-- END row -->
+<!-- END row --> 
 </div>
 <!-- END col-10 -->
 </div>

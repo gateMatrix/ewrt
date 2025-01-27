@@ -25,22 +25,21 @@ include "includes/head.php";
 	<div class="col-3">
 	<button style="float: right;" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modaluser">Add New User</button>
 	</div>
-</div>
+</div> 
 
 <?php 
 if (isset($_POST['register'])){
 
-$username 	= $_POST["username"];
 $fullname 	= $_POST["fullname"];
 $phone 		= $_POST["phone"]; 
 $email 		= $_POST["email"];
 $district 	= $_POST["district"];
 $role 		= $_POST["role"];
-$password 	= $_POST["password"];
+$password   = "CAF".mt_rand(10, 1000);
 
-$message 	= "Hello ".$fullname.", your EWRT account has been created with Username: ".$username." and Password: ".$password;
+$message 	= "Hello ".$fullname.", your CAF-EWRT account has been created with Username: ".$phone." and Password: ".$password;
 
-$sql 		= "INSERT INTO users (username, password, fullname, district, phone, email, role) VALUES ('$username', '$password', '$fullname', '$district', '$phone', '$email', '$role')";
+$sql 		= "INSERT INTO users (username, password, fullname, district, phone, email, role) VALUES ('$phone', '$password', '$fullname', '$district', '$phone', '$email', '$role')";
 
 $ask = "SELECT * FROM users";
 $result = mysqli_query($con, $ask);
@@ -136,18 +135,11 @@ echo "
 </select>
 </div>
 
-<div class="form-group mb-3">
-	<input type="text" placeholder="Username" class="form-control" name="username" >
-</div>
-
-<div class="form-group mb-3">
-	<input type="text" placeholder="Enter password" class="form-control" name="password" >
-</div>
 </div>
 </div>
 <div class="form-group mb-3" style="padding-top: 10px;">
 	
-	<button type="submit" name="register" class="btn btn-theme btn">Submit Indicator</button>
+	<button type="submit" name="register" class="btn btn-theme btn">Register User</button>
 </div>
 </form>
 	</div>

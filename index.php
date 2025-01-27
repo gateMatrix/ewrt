@@ -63,11 +63,11 @@ $sql = "UPDATE users SET lastlogin='$lastLogin' WHERE username='$username'";
 if(mysqli_query($con, $sql) AND $_SESSION['role'] == 'admin'){
 header("Location: dash.php"); 
 die();
-} elseif(mysqli_query($con, $sql) AND $_SESSION['role'] == 'member'){
-header("Location: dash-m.php"); 
+} elseif(mysqli_query($con, $sql) AND $_SESSION['role'] == 'officer'){
+header("Location: dash-o.php"); 
 die();
-}elseif(mysqli_query($con, $sql) AND $_SESSION['role'] == 'stockist'){
-header("Location: dash-s.php"); 
+}elseif(mysqli_query($con, $sql) AND $_SESSION['role'] == 'monitor'){
+header("Location: dash-m.php"); 
 die();
 }else{
 die();
@@ -99,7 +99,7 @@ User does not exist!
 	<div class="mb-3">
 		<label class="form-label">Username</label>
 		<input type="text" class="form-control form-control-lg fs-15px" name="username" placeholder="Username">
-	</div>
+	</div> 
 	<div class="mb-3">
 		<div class="d-flex">
 			<label class="form-label">Password</label>

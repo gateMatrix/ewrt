@@ -4,18 +4,12 @@
 <?php include "includes/menu.php"; ?>
 
 <!-- BEGIN #content -->
-<div id="content" class="app-content">
-<!-- BEGIN container -->
-<div class="container">
-<!-- BEGIN row -->
-<div class="row justify-content-center">
-<!-- BEGIN col-11 -->
-<div class="col-xl-11">
-<!-- BEGIN row --> 
-<div class="row">
-<!-- BEGIN col-9 -->
-<div class="col-xl-12">
 
+<div id="content" class="app-content">
+<div class="container">
+<div class="row justify-content-center">
+<div class="row">
+<div class="col-xl-12">
 <h1 class="page-header">
 <?php
 
@@ -156,18 +150,15 @@ if (isset($_POST["submit"])) {
 </div>
 </div>
 </div>
-<!-- END #formControls -->
+</div>
+</div>
+</div>
+</div>
+</div>
 
-</div>
-<!-- END col-9-->
-</div>
-<!-- END row -->
-</div>
-<!-- END col-10 -->
-</div>
-<!-- END row -->
-</div>
-<!-- END container -->
+
+
+
 </div>
 <!-- END #content -->
 

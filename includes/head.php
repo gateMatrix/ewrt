@@ -56,6 +56,11 @@ include "dbhandle.php";
 <link href="./assets/plugins/spectrum-colorpicker2/dist/spectrum.min.css" rel="stylesheet">
 <link href="./assets/plugins/select-picker/dist/picker.min.css" rel="stylesheet">
 <link href="./assets/plugins/jquery-typeahead/dist/jquery.typeahead.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <!-- ================== END page-css ================== -->
 <!-- ================== END page-css ================== -->
 
@@ -83,7 +88,7 @@ include "dbhandle.php";
 	</button>
 </div>
 
-<a href="./dash.php" class="brand-logo">
+<a  class="brand-logo">
 	<img style="height: 550px !important;" src="./assets/img/logo.png" class="invert-dark" alt="" >
 </a>
 </div>
