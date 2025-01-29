@@ -38,13 +38,13 @@
 <?php  
 $tableid = "qtnID";
 $tableName = "indicators";
-$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.risk, incident.conflict, responses.responseID, responses.name AS iname   FROM incident INNER JOIN responses ON incident.incidentType = responses.responseID WHERE responses.indicator=6";
+$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.risk, incident.conflict FROM incident";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
 echo "<tr>";
 echo "<td>".$row['incidentID']."</td>";
-echo "<td>".$row['iname']."</td>"; 
+echo "<td>".$row['incidentType']."</td>"; 
 echo "<td>".$row['severity']."</td>";
 echo "<td>".$row['date1']."</td>";
 echo "<td>                                                       
