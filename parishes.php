@@ -27,15 +27,15 @@
 if (isset($_POST['register'])){
 
 $name = $_POST["name"];
-$constituency = $_POST["constituency"];
+$subcounty = $_POST["subcounty"];
 $district = $_POST["district"];
-$sql = "INSERT INTO parishes (name, constituency, district) VALUES ('$name', '$constituency', '$district')";
+$sql = "INSERT INTO parishes (name, subcounty, district) VALUES ('$name', '$subcounty', '$district')";
 
 
 if(mysqli_query($con, $sql)){
 echo "
     <div class='alert alert-primary alert-dismissible fade show' role='alert'>
-        Village added successful!
+        Parish added successful!
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'>  
         </button>
     </div>";
@@ -67,14 +67,14 @@ echo "
 
 			$tableid = "parishID";
 			$tableName = "parishes";
-			$sql = "SELECT parishes.name AS parishname, parishes.parishID, subcounty.subcountyID, district.districtID, subcounty.name AS subname, district.name AS dname   FROM parishes INNER JOIN subcounty on parishes.subcounty=subcounty.subcountyID INNER JOIN district on parishes.district=district.districtID";
+			$sql = "SELECT *  FROM parishes";
 			$result = mysqli_query($con, $sql);
 
 			while($row = mysqli_fetch_array($result)) {
 				  echo "<tr>";
-				  echo "<td>".$row['parishname']."</td>";
-			      echo "<td>".$row['subname']."</td>";
-			      echo "<td>".$row['dname']."</td>";
+				  echo "<td>".$row['name']."</td>";
+			      echo "<td>".$row['subcounty']."</td>";
+			      echo "<td>".$row['district']."</td>";
 			      echo "<td>                                                       
     <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' data-bs-original-title='Edit'>
         <i class='fa fa-edit'></i>
@@ -110,13 +110,13 @@ echo "
 <div class="col-md-12"> 
 <div class="form-group mb-3">
 <label class="form-check-label" for="defaultCheck1">Parish Name</label>
-<input type="text" placeholder="Enter constituency name" class="form-control" name="name" >
+<input type="text" placeholder="Select Sub County" class="form-control" name="name" >
 </div>
 <div class="mb-3">
-    <select class="form-select" id="example-select" class="choices form-select" name="constituency">
+    <select class="form-select" id="ex-search"  class="choices form-select" name="subcounty">
         <option>Select Sub County</option>
         <?php 
-
+ 
         $sql = "SELECT * FROM subcounty";
         if($result = mysqli_query($con, $sql)){
             if(mysqli_num_rows($result) > 0){
@@ -133,6 +133,8 @@ echo "
         
     </select>
 </div>
+
+
 <div class="mb-3">
     <select class="form-select" id="example-select" class="choices form-select" name="district">
         <option>Select District</option>
@@ -228,5 +230,8 @@ Adjust the appearance to reduce glare and give your eyes a break.
 function checkDelete(){
     return confirm('Are you sure?');
 }
+</script>
+<script type="text/javascript">
+    $('#ex-search').picker({search : true});
 </script>
 <?php include "includes/scripts.php" ?>

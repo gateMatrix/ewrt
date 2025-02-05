@@ -86,7 +86,7 @@ echo "
 <div class="col-md-6">
 <div class="mb-3">
 	<label class="form-label">Location of Incident (Parish)</label>
-    <select class="selectpicker form-control"  name="parish">
+    <select  class="form-select" id="ex-search"  class="choices form-select"  name="parish">
         <?php 
         $sql = "SELECT * FROM parishes";
         if($result = mysqli_query($con, $sql)){
@@ -335,5 +335,7 @@ Adjust the appearance to reduce glare and give your eyes a break.
 	{% } %}
 	</script>
 	<!-- END template-download -->
-
+<script type="text/javascript">
+    $('#ex-search').picker({search : true});
+</script>
 <?php include "includes/scripts.php" ?>
