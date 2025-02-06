@@ -48,11 +48,11 @@ echo "
 ?>
 
 <div class="row">
-<div class="col-6">
+<div class="col-8">
 <div id="formControls" class="mb-5">
 <div class="card">
 <div class="card-body pb-2">
-<table id="table" class="table text-nowrap w-100">
+<table id="datatableDefault" class="table text-nowrap w-100">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -62,7 +62,7 @@ echo "
 		</tr>
 	</thead>
 	<tbody>
-		<tr> 
+
 			<?php  
 
 			$tableid = "parishID";
@@ -75,21 +75,18 @@ echo "
 				  echo "<td>".$row['name']."</td>";
 			      echo "<td>".$row['subcounty']."</td>";
 			      echo "<td>".$row['district']."</td>";
-			      echo "<td>                                                       
-    <a aria-label='anchor' class='btn btn-sm bg-primary-subtle me-1' data-bs-toggle='tooltip' data-bs-original-title='Edit'>
-        <i class='fa fa-edit'></i>
-    </a>
-    <a onclick='return checkDelete()' href='includes/delete.php?id=".$row['parishID']."&t=".$tableName."&tID=".$tableid."' aria-label='anchor' class='btn btn-sm bg-danger-subtle' data-bs-toggle='tooltip' data-bs-original-title='Delete'>
-        <i class='fa fa-trash'></i>
-    </a>
-</td>";
+			      echo "<td> 
+                  <a onclick='return checkDelete()' href='includes/delete.php?id=".$row['parishID']."&t=".$tableName."&tID=".$tableid."' aria-label='anchor' class='btn btn-sm bg-danger-subtle' data-bs-toggle='tooltip' data-bs-original-title='Delete'>
+                        <i class='fa fa-trash'></i>
+                    </a>
+                </td>";
 			      echo "</tr>";
 
 			   }
 
 
 			?>
-		</tr>
+
 	</tbody>
 </table>
 
@@ -102,7 +99,7 @@ echo "
 </div>
 
 
-<div class="col-6">
+<div class="col-4">
 <div class="card">
 <div class="card-body pb-2">
 <form id="form" method="POST" action="">
