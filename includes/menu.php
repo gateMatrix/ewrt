@@ -156,14 +156,14 @@ if ($_SESSION['role'] == 'admin' ) {
 				<div class="menu">
 					<div class="menu-header">Incident Reporting</div>
 					<div class="menu-item">
-						<a href="dash.php" class="menu-link">
+						<a href="dash-m.php" class="menu-link">
 							<span class="menu-icon"><i class="fa fa-laptop"></i></span>
 							<span class="menu-text">Dashboard</span>
 						</a>
 					</div>
 
 					<div class="menu-item">
-						<a href="incident.php" class="menu-link">
+						<a href="new-incident.php" class="menu-link">
 							<span class="menu-icon"><i class="fa fa-paperclip"></i></span>
 							<span class="menu-text">Report Incident</span>
 						</a>
@@ -203,33 +203,7 @@ if ($_SESSION['role'] == 'admin' ) {
 						</a>
 					</div>
 
-					<div class="menu-item">
-						<a href="users.php" class="menu-link">
-							<span class="menu-icon"><i class="fa fa-users"></i></span>
-							<span class="menu-text">Profile</span>
-						</a>
-					</div>
-					<div class="menu-item has-sub">
-						<a href="#" class="menu-link">
-							<span class="menu-icon">
-								<i class="fa fa-chart-pie"></i>
-							</span>
-							<span class="menu-text">Reports</span>
-							<span class="menu-caret"><b class="caret"></b></span>
-						</a>
-						<div class="menu-submenu">
-							<div class="menu-item">
-								<a href="closed-incidents.php" class="menu-link">
-									<span class="menu-text">Incident Report</span>
-								</a>
-							</div>
-							<div class="menu-item">
-								<a href="cumulative.php" class="menu-link">
-									<span class="menu-text">Cummulative</span>
-								</a>
-							</div>
-						</div>
-					</div>
+
 
 					<div class="menu-item">
 						<a href="profile.php" class="menu-link">
@@ -273,7 +247,7 @@ if ($_SESSION['role'] == 'admin' ) {
 					</div>
 
 					<div class="menu-item">
-						<a href="incident.php" class="menu-link">
+						<a href="new-incident.php" class="menu-link">
 							<span class="menu-icon"><i class="fa fa-paperclip"></i></span>
 							<span class="menu-text">Report Incident</span>
 						</a>
