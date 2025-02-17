@@ -32,6 +32,7 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
+			$userid = $_SESSION['id'];
 			$district = $_SESSION['district'];
 	        $sql = "SELECT * FROM district WHERE districtID ='$district' ";
 	        $result = mysqli_query($con, $sql);
@@ -44,12 +45,12 @@
 			$parish = $row['parishID'];
 
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND parish = '$parish' AND monitor='$userid' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			$twoweeks = $row['NumberOf2Weeks'];
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE  date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE  date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND parish = '$parish' AND monitor='$userid' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			echo $row['NumberOfIncidents']."<br/>";;
@@ -107,12 +108,12 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='incomplete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='incomplete' AND parish = '$parish' AND monitor='$userid' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			$twoweeks = $row['NumberOf2Weeks'];
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='incomplete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='incomplete' AND parish = '$parish' AND monitor='$userid' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			echo $row['NumberOfIncidents']."<br/>";;
@@ -168,12 +169,12 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='complete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='complete' AND parish = '$parish' AND monitor='$userid' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			$twoweeks = $row['NumberOf2Weeks'];
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='complete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='complete' AND parish = '$parish' AND monitor='$userid' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			echo $row['NumberOfIncidents']."<br/>";;
@@ -202,7 +203,7 @@
 						echo "not enough data yet";
 					echo "</div>";
 				} ?>
-
+ 
 
 
 			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
@@ -246,7 +247,8 @@
 <tbody>
 
 <?php  
-$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID WHERE parish = '$parish' LIMIT 5 ";
+
+$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID WHERE parish = '$parish' AND monitor='$userid' LIMIT 5 ";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {

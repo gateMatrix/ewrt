@@ -174,7 +174,7 @@ if ($_SESSION['role'] == 'admin' ) {
 						</a>
 					</div>
 					<div class="menu-item">
-						<a href="evidences.php" class="menu-link">
+						<a href="my-evidences.php" class="menu-link">
 							<span class="menu-icon"><i class="far fa-hand-paper"></i></span>
 							<span class="menu-text">Evidences</span>
 						</a>
@@ -202,9 +202,9 @@ if ($_SESSION['role'] == 'admin' ) {
 					</div>
 
 					<div class="menu-item">
-						<a href="my-incidents.php" class="menu-link">
+						<a href="myincidents.php" class="menu-link">
 							<span class="menu-icon"><i class="far fa-folder-open"></i></span>
-							<span class="menu-text">Completed Incidents</span>
+							<span class="menu-text">My Incidents</span>
 						</a>
 					</div>
 
