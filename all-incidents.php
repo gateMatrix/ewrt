@@ -24,7 +24,7 @@
 
 	<thead>
 		<tr>
-			<th>#</th>
+			<th>Incident Number</th>
 			<th>Type</th>
 			<th>Severity</th>
 			<th>Date</th>

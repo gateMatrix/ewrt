@@ -234,7 +234,7 @@
 <tbody>
 
 <?php  
-$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID LIMIT 5";
+$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID ORDER BY ID DESC LIMIT 5";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
