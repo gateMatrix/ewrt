@@ -37,10 +37,10 @@
 <?php  
 $incident = $_GET['id'];
 $location = $_GET['loc'];
-$monitor = $_GET['monitor'];
+$monitor = $_GET['monitor']; 
 $off = $_GET['off'];
 
-$sql2 = "SELECT * FROM location WHERE locationID='$location' ";
+$sql2 = "SELECT * FROM parishes WHERE parishID='$location' ";
 $result2 = mysqli_query($con, $sql2);
 $row2 = mysqli_fetch_array($result2);
 
@@ -58,9 +58,9 @@ $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result);
 
 echo "<div class='row bg-secondary' style='padding-top: 5px; padding-bottom: 5px;'>
-	<div class='col-4'><strong>DISTRICT: </strong>".$row2['districtname']. "</div>
-	<div class='col-4'><strong>SUB COUNTY: </strong>".$row2['subcountyname']. " </div>
-	<div class='col-4'><strong>PARISH: </strong>".$row2['parishname']. "</div>
+	<div class='col-4'><strong>DISTRICT: </strong>".$row2['district']. "</div>
+	<div class='col-4'><strong>SUB COUNTY: </strong>".$row2['subcounty']. " </div>
+	<div class='col-4'><strong>PARISH: </strong>".$row2['name']. "</div>
 </div>";
 echo "<br>";
 echo "<strong>Incident Being Reported</strong>";

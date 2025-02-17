@@ -48,7 +48,12 @@ if ($_SESSION['role'] == 'admin' ) {
 							<span class="menu-text">Response Mechanisms</span>
 						</a>
 					</div>
-
+					<div class="menu-item">
+						<a href="all-incidents.php" class="menu-link">
+							<span class="menu-icon"><i class="far fa-folder-open"></i></span>
+							<span class="menu-text">All Incidents</span>
+						</a>
+					</div>
 					<div class="menu-item">
 						<a href="my-incidents.php" class="menu-link">
 							<span class="menu-icon"><i class="far fa-folder-open"></i></span>

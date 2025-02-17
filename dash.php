@@ -190,7 +190,7 @@
 						echo "not enough data yet";
 					echo "</div>";
 				} ?>
-
+ 
 
 
 			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>

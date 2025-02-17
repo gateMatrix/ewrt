@@ -28,8 +28,9 @@
 			<th>Type</th>
 			<th>Severity</th>
 			<th>Date</th>
+			
 			<th>Status</th>
-			<th>Action</th>
+			<th>Submitted By</th>
 		</tr>
 	</thead> 
 	<tbody>
@@ -38,7 +39,7 @@
 <?php  
 $tableid = "qtnID";
 $tableName = "indicators";
-$sql = "SELECT incident.incidentID, incident.incidentType, incident.severity, incident.date1, incident.status, incident.evidence   FROM incident ORDER BY ID DESC";
+$sql = "SELECT *  FROM  incident INNER JOIN users ON incident.monitor=users.userID ORDER BY ID DESC";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
@@ -47,6 +48,7 @@ echo "<td>".$row['incidentID']."</td>";
 echo "<td>".$row['incidentType']."</td>";
 echo "<td>".$row['severity']."</td>";
 echo "<td>".$row['date1']."</td>"; 
+
 echo "<td> "; ?>
 
 <?php if ($row['status'] == 'complete') {
@@ -57,27 +59,12 @@ echo "<td> "; ?>
 	echo "<span aria-label='anchor' class='badge bg-warning bg-opacity-20 text-warning' >".strtoupper($row['status'])."</span>
 </td>";
 } 
-echo "<td> ";
-?>                                                       
-
-
-<?php if ($row['evidence'] == 0) {
-// code...
-echo "<a href='evidence.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Upload Evidences</a></td>";
-}elseif ($row['evidence'] == 1) {
-// code...
-echo "<a href='#' data-bs-toggle='tooltip' data-bs-original-title='Evidence already submitted' type='button' class='btn disabled btn-success btn-sm' disabled><i class='far fa-check-circle'></i> Uploaded</a>";
-}
-
-
- ?> 
-<?php 
-echo "</td>";
+echo "<td>".$row['fullname']."</td>"; 
 
 echo "</tr>";
 }
 ?>
-
+ 
 	</tbody>
 </table>
 </div>
