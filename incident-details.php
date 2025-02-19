@@ -278,7 +278,7 @@ if ($row1['evidence'] == '1') {
 }elseif($row1['evidence'] == '0') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Response Mechanism</div>
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidences</div>
 	<div class="card-body">
 	<div class="row">
 		<div class="col-6">
