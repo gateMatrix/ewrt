@@ -58,6 +58,10 @@ $sql = "SELECT * FROM responseindicator WHERE incidentID='$incident' ";
 $result = mysqli_query($con, $sql);
 $row4 = mysqli_fetch_array($result);
 
+$sql = "SELECT * FROM files WHERE incidentID='$incident' ";
+$result5 = mysqli_query($con, $sql);
+$row5 = mysqli_fetch_array($result);
+
 
 echo "<div class='row'>";
 echo "<div class='col-3'>";
@@ -237,6 +241,41 @@ if ($row1['response'] == '1') {
 		</div>
 	</div></div></div>';
 }elseif($row1['response'] == '0') {
+	echo '
+	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Response Mechanism</div>
+	<div class="card-body">
+	<div class="row">
+		<div class="col-6">
+		
+			<p class="qtn">No data available at the moment</p>
+		</div>
+	</div></div></div>';
+}
+?>
+
+
+<?php
+if ($row1['evidence'] == '1') {
+	echo '
+	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidence - Uploaded On </div>
+	<div class="card-body">
+	<div class="row">';
+ 
+			$sql = "SELECT * FROM files WHERE incidentID='$incident' ";
+			$result = mysqli_query($con, $sql);
+
+			while($row = mysqli_fetch_array($result)) {
+				  echo '<a href="./'.$row['file_name'].'" class="menu-link">
+							<span class="menu-icon"><i class="fa fa-paperclip"></i></span>
+							<span class="menu-text">'.substr($row['file_name'], strpos($row['file_name'], "/") + 1).'</span>
+						</a>';
+
+			   }
+
+	echo '</div></div></div>';
+}elseif($row1['evidence'] == '0') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
 	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Response Mechanism</div>
