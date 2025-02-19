@@ -36,102 +36,114 @@ $incident = $_GET['id'];
 $location = $_GET['loc'];
 
 
-$sql2 = "SELECT * FROM parishes WHERE parishID='$location' ";
+$sql2 = "SELECT * FROM parishes WHERE name='$location' ";
 $result2 = mysqli_query($con, $sql2);
-$row2 = mysqli_fetch_array($result2);
+$row0 = mysqli_fetch_array($result2);
 
 
 
-$sql = "SELECT * FROM incident INNER JOIN conflictdrivers ON incident.incidentID = conflictdrivers.incidentID INNER JOIN riskindicator ON incident.incidentID = riskindicator.incidentID INNER JOIN responseindicator ON incident.incidentID=responseindicator.incidentID WHERE incident.incidentID='$incident' ";
+$sql = "SELECT * FROM incident  WHERE incidentID='$incident' ";
 $result = mysqli_query($con, $sql);
-$row = mysqli_fetch_array($result);
+$row1 = mysqli_fetch_array($result);
+
+$sql = "SELECT * FROM  conflictdrivers WHERE incidentID='$incident' ";
+$result = mysqli_query($con, $sql);
+$row2 = mysqli_fetch_array($result);
+
+$sql = "SELECT * FROM riskindicator WHERE incidentID='$incident' ";
+$result = mysqli_query($con, $sql);
+$row3 = mysqli_fetch_array($result);
+
+$sql = "SELECT * FROM responseindicator WHERE incidentID='$incident' ";
+$result = mysqli_query($con, $sql);
+$row4 = mysqli_fetch_array($result);
 
 
 echo "<div class='row'>";
 echo "<div class='col-3'>";
 echo "<strong>District</strong>";
-echo "<p>".$row2['district']."</p>";
+echo "<p>".$row0['district']."</p>";
 echo "</div>";
 
 echo "<div class='col-3'>";
 echo "<strong>Sub County</strong>";
-echo "<p>".$row2['subcounty']."</p>";
+echo "<p>".$row0['subcounty']."</p>";
 echo "</div>";
 
 echo "<div class='col-3'>";
 echo "<strong>Parish</strong>";
-echo "<p>".$row2['subcounty']."</p>";
+echo "<p>".$row0['name']."</p>";
 echo "</div>";
 
 echo "<div class='col-3'>";
 echo "<strong>Date</strong>";
-echo "<p>".$row['date1']."</p>";
+echo "<p>".$row1['date1']."</p>";
 echo "</div>";
 echo "</div>";
 
 echo "<div class='row'>";
 echo "<div class='col-3'>";
 echo "<strong>Type of Incident</strong>";
-echo "<p>".$row['incidentType']."</p>";
+echo "<p>".$row1['incidentType']."</p>";
 echo "</div>";
 
 echo "<div class='col-3'>";
 echo "<strong>Severity</strong>";
-echo "<p>".$row['severity']."</p>";
+echo "<p>".$row1['severity']."</p>";
 echo "</div>";
 
 echo "<div class='col-3'>";
 echo "<strong>Injured</strong>";
-echo "<p>".$row['injured']."</p>";
+echo "<p>".$row1['injured']."</p>";
 echo "</div>";
 
 echo "<div class='col-3'>";
 echo "<strong>Perpetrators</strong>";
-echo "<p>".$row['perpetrators']."</p>";
+echo "<p>".$row1['perpetrators']."</p>";
 echo "</div>";
 
 echo "</div>";
 echo "<strong>Incident Being Reported</strong>";
-echo "<p>".$row['name']."</p>";
+echo "<p>".$row1['name']."</p>";
 
 ?>
 <?php
-if ($row['conflict'] == '1') {
+if ($row1['conflict'] == '1') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Conflict Drivers - '.$row['date2'].'</div>
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Conflict Drivers - '.$row2['date2'].'</div>
 	<div class="card-body">
 	<div class="row">
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Political Tension</p>
-			<p class="answer mb-1">'. $row['politicalTension'].'</p>
+			<p class="answer mb-1">'. $row2['politicalTension'].'</p>
 			</div>
 			<div class="response">
 			<p class="qtn">Economic Factor</p>
-			<p class="answer mb-1">'. $row['economicFactor'].'</p>
+			<p class="answer mb-1">'. $row2['economicFactor'].'</p>
 			</div>
 			<div class="response-last">
 			<p class="qtn">Socila/Ethnic Issues</p>
-			<p class="answer mb-1">'. $row['socialIssue'].'</p>
+			<p class="answer mb-1">'. $row2['socialIssue'].'</p>
 			</div>
 		</div>
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Grievances or Unresolved Issues</p>
-			<p class="answer mb-1">'. $row['grievance'].'</p>
+			<p class="answer mb-1">'. $row2['grievance'].'</p>
 			</div>
 			<div class="response">
 			<p class="qtn">External Influence</p>
-			<p class="answer mb-1">'. $row['externalInfluence'].'</p>
+			<p class="answer mb-1">'. $row2['externalInfluence'].'</p>
 			</div>
 			<div class="response-last">
 			<p class="qtn">Gender Based Violence</p>
-			<p class="answer mb-1">'. $row['gbv'] .'</p>
+			<p class="answer mb-1">'. $row2['gbv'] .'</p>
 			</div>
 		</div>
 	</div></div></div>';
-}elseif($row['response'] == '0') {
+}elseif($row1['conflict'] == '0') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
 	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Conflict Drivers</div>
@@ -146,34 +158,34 @@ if ($row['conflict'] == '1') {
 ?>
 
 <?php
-if ($row['conflict'] == '1') {
+if ($row1['risk'] == '1') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Risk Indicators - '.$row['date3'].'</div>
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Risk Indicators - '.$row3['date3'].'</div>
 	<div class="card-body">
 	<div class="row">
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Waepon Availability</p>
-			<p class="answer mb-1">'. $row['weapon'].'</p>
+			<p class="answer mb-1">'. $row3['weapon'].'</p>
 			</div>
 			<div class="response">
 			<p class="qtn">Mobilization of Groups</p>
-			<p class="answer mb-1">'. $row['mobilization'].'</p>
+			<p class="answer mb-1">'. $row3['mobilization'].'</p>
 			</div>
 		</div>
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Impact to Infrastructure</p>
-			<p class="answer mb-1">'. $row['impact'].'</p>
+			<p class="answer mb-1">'. $row3['impact'].'</p>
 			</div>
 			<div class="response">
 			<p class="qtn">Rumors or Misinformation</p>
-			<p class="answer mb-1">'. $row['rumors'].'</p>
+			<p class="answer mb-1">'. $row3['rumors'].'</p>
 			</div>
 		</div>
 	</div></div></div>';
-}elseif($row['response'] == '0') {
+}elseif($row1['risk'] == '0') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
 	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Risk Indicators</div>
@@ -189,42 +201,42 @@ if ($row['conflict'] == '1') {
 
 
 <?php
-if ($row['response'] == '1') {
+if ($row1['response'] == '1') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Response Mechanism - '.$row['date4'].'</div>
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Response Mechanism - '.$row4['date4'].'</div>
 	<div class="card-body">
 	<div class="row">
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Security Force Presence and Response</p>
-			<p class="answer mb-1">'. $row['securityForce'].'</p>
+			<p class="answer mb-1">'. $row4['securityForce'].'</p>
 			</div>
 			<div class="response">
 			<p class="qtn">Emergency Services Availability and level of preparedness</p>
-			<p class="answer mb-1">'. $row['emergencyService'].'</p>
+			<p class="answer mb-1">'. $row4['emergencyService'].'</p>
 			</div>
 			<div class="response-last">
 			<p class="qtn">Prevention of Conflict</p>
-			<p class="answer mb-1">'. $row['prevention'].'</p>
+			<p class="answer mb-1">'. $row4['prevention'].'</p>
 			</div>
 		</div>
 		<div class="col-6">
 			<div class="response">
 			<p class="qtn">Humanitarian Aid needed</p>
-			<p class="answer mb-1">'. $row['humanitarian'].'</p>
+			<p class="answer mb-1">'. $row4['humanitarian'].'</p>
 			</div>
 			<div class="response">
 			<p class="qtn">Effectiveness of Response</p>
-			<p class="answer mb-1">'. $row['effectiveness'].'</p>
+			<p class="answer mb-1">'. $row4['effectiveness'].'</p>
 			</div>
 			<div class="response-last">
 			<p class="qtn">Peace Buidling Interventions</p>
-			<p class="answer mb-1">'. $row['peaceBuilding'] .'</p>
+			<p class="answer mb-1">'. $row4['peaceBuilding'] .'</p>
 			</div>
 		</div>
 	</div></div></div>';
-}elseif($row['response'] == '0') {
+}elseif($row1['response'] == '0') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
 	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Response Mechanism</div>
