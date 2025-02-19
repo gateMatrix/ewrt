@@ -24,13 +24,12 @@
 
 	<thead>
 		<tr>
-			<th>Incident Number</th>
+			<th>Number</th>
 			<th>Type</th>
 			<th>Severity</th>
-			<th>Date</th>
-			
 			<th>Status</th>
-			<th>Submitted By</th>
+			<th>Monitor</th>
+			<th>Action</th>
 		</tr>
 	</thead> 
 	<tbody>
@@ -47,8 +46,7 @@ echo "<tr>";
 echo "<td>".$row['incidentID']."</td>";
 echo "<td>".$row['incidentType']."</td>";
 echo "<td>".$row['severity']."</td>";
-echo "<td>".$row['date1']."</td>"; 
-
+ 
 echo "<td> "; ?>
 
 <?php if ($row['status'] == 'complete') {
@@ -57,13 +55,14 @@ echo "<td> "; ?>
 </td>";
 }elseif($row['status'] == 'incomplete'){
 	echo "<span aria-label='anchor' class='badge bg-warning bg-opacity-20 text-warning' >".strtoupper($row['status'])."</span>
-</td>";
+</td>"; 
 } 
 echo "<td>".$row['fullname']."</td>"; 
 
+echo "<td><a href='incident-details.php?id=".$row['incidentID']."&loc=".$row['parish']."' type='button' class='btn btn-theme btn-sm'>View Details</a></td>";
 echo "</tr>";
 }
-?>
+?> 
  
 	</tbody>
 </table>

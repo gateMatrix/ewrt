@@ -230,7 +230,7 @@
 		<th class="text-center">Status</th>
 		<th class="text-end pe-0">Peace Monitor</th>
 	</tr>
-</thead>
+</thead> 
 <tbody>
 
 <?php  
