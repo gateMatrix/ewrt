@@ -60,7 +60,7 @@ $row4 = mysqli_fetch_array($result);
 
 $sql = "SELECT * FROM files WHERE incidentID='$incident' ";
 $result5 = mysqli_query($con, $sql);
-$row5 = mysqli_fetch_array($result);
+$row5 = mysqli_fetch_array($result5);
 
 
 echo "<div class='row'>";
@@ -259,7 +259,7 @@ if ($row1['response'] == '1') {
 if ($row1['evidence'] == '1') {
 	echo '
 	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidence - Uploaded On </div>
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidences - Uploaded On '.$row5['uploaded_on'].'</div>
 	<div class="card-body">
 	<div class="row">';
  
