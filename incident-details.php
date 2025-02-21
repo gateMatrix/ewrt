@@ -105,12 +105,53 @@ echo "<div class='col-3'>";
 echo "<strong>Perpetrators</strong>";
 echo "<p>".$row1['perpetrators']."</p>";
 echo "</div>";
-
+ 
 echo "</div>";
+echo "<div class='row'>";
+echo "<div class='col-9'>";
 echo "<strong>Incident Being Reported</strong>";
 echo "<p>".$row1['name']."</p>";
-
+echo "</div>";
+echo "<div class='col-3'>";
+echo "<a class='btn btn-secondary' href='incident-update.php?id=".$incident."'>Edit Details</a>";
+echo "</div>";
+echo "</div>";
 ?>
+ 
+<?php
+if ($row1['evidence'] == '1') {
+	echo '
+	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidences - Uploaded On '.$row5['uploaded_on'].'</div>
+	<div class="card-body">
+	<div class="row">';
+ 
+			$sql = "SELECT * FROM files WHERE incidentID='$incident' ";
+			$result = mysqli_query($con, $sql);
+
+			while($row = mysqli_fetch_array($result)) {
+				  echo '<a href="./'.$row['file_name'].'" class="menu-link">
+							<span class="menu-icon"><i class="fa fa-paperclip"></i></span>
+							<span class="menu-text">'.substr($row['file_name'], strpos($row['file_name'], "/") + 1).'</span>
+						</a>';
+
+			   }
+
+	echo '</div></div></div>';
+}elseif($row1['evidence'] == '0') {
+	echo '
+	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
+	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidences</div>
+	<div class="card-body">
+	<div class="row">
+		<div class="col-6">
+		
+			<p class="qtn">No data available at the moment</p>
+		</div>
+	</div></div></div>';
+}
+?>
+
 <?php
 if ($row1['conflict'] == '1') {
 	echo '
@@ -255,39 +296,6 @@ if ($row1['response'] == '1') {
 ?>
 
 
-<?php
-if ($row1['evidence'] == '1') {
-	echo '
-	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidences - Uploaded On '.$row5['uploaded_on'].'</div>
-	<div class="card-body">
-	<div class="row">';
- 
-			$sql = "SELECT * FROM files WHERE incidentID='$incident' ";
-			$result = mysqli_query($con, $sql);
-
-			while($row = mysqli_fetch_array($result)) {
-				  echo '<a href="./'.$row['file_name'].'" class="menu-link">
-							<span class="menu-icon"><i class="fa fa-paperclip"></i></span>
-							<span class="menu-text">'.substr($row['file_name'], strpos($row['file_name'], "/") + 1).'</span>
-						</a>';
-
-			   }
-
-	echo '</div></div></div>';
-}elseif($row1['evidence'] == '0') {
-	echo '
-	<div class="card col-12" style="padding-left: 0px; padding-right: 0px; margin: 5px; flex: 1 !important; border-radius: 0px !important;">
-	<div class="card-header fw-bold small" style="border-radius: 0px !important;">Evidences</div>
-	<div class="card-body">
-	<div class="row">
-		<div class="col-6">
-		
-			<p class="qtn">No data available at the moment</p>
-		</div>
-	</div></div></div>';
-}
-?>
 
 	
 

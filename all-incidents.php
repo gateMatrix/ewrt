@@ -36,7 +36,7 @@
 
 		
 <?php  
-$tableid = "qtnID";
+$tableid = "qtnID"; 
 $tableName = "indicators";
 $sql = "SELECT *  FROM  incident INNER JOIN users ON incident.monitor=users.userID ORDER BY ID DESC";
 $result = mysqli_query($con, $sql);
@@ -79,7 +79,7 @@ echo "</tr>";
 <!-- END col-10 -->
 </div>
 <!-- END row -->
-</div>
+</div> 
 <!-- END container -->
 </div>
 <!-- END #content -->
