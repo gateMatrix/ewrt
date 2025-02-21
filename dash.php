@@ -74,7 +74,7 @@
 
 
 
-			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
+			<div><a href="all-incidents.php" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
 		</div>
 		<!-- BEGIN card-body -->
 	</div>
@@ -133,7 +133,7 @@
 
 
 
-			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
+			<div><a href="all-incidents.php" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
 		</div>
 		<!-- END card-body -->
 	</div>
@@ -193,7 +193,7 @@
  
 
 
-			<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
+			<div><a href="all-incidents.php" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
 		</div>
 		<!-- END card-body -->
 	</div>

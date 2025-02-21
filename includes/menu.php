@@ -286,6 +286,12 @@ if ($_SESSION['role'] == 'admin' ) {
 					</div>
 					<hr/>
 					<div class="menu-item">
+						<a href="alldistrict-inc.php" class="menu-link">
+							<span class="menu-icon"><i class="far fa-folder-open"></i></span>
+							<span class="menu-text">My Incidents</span>
+						</a>
+					</div> 
+					<div class="menu-item">
 						<a href="district-incidents.php" class="menu-link">
 							<span class="menu-icon"><i class="far fa-folder-open"></i></span>
 							<span class="menu-text">Completed Incidents</span>

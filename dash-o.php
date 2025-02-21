@@ -34,18 +34,18 @@
 			<?php
 			$district = $_SESSION['district'];
 
-			$sql = "SELECT * FROM parishes WHERE district = '$district' ";
+			$sql = "SELECT * FROM district WHERE districtID='$district'";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
-			$parish = $row['parishID'];
+			$districtname = $row['name'];  
+ 
 
-
-			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND district = '$districtname' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			$twoweeks = $row['NumberOf2Weeks'];
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE  date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE  date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND district = '$districtname' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			echo $row['NumberOfIncidents']."<br/>";;
@@ -103,12 +103,19 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='incomplete' AND parish = '$parish' ";
+			$district = $_SESSION['district'];
+
+			$sql = "SELECT * FROM district WHERE districtID='$district'";
+			$result = mysqli_query($con, $sql);
+			$row = mysqli_fetch_array($result);
+			$districtname = $row['name'];  
+
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='incomplete' AND district	 = '$districtname' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			$twoweeks = $row['NumberOf2Weeks'];
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='incomplete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='incomplete' AND district = '$districtname' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			echo $row['NumberOfIncidents']."<br/>";;
@@ -164,12 +171,12 @@
 			<div style="padding-bottom: 10px; margin-top: -15px;" class="text-white text-opacity-40">in the last 1 week</div>
 			<h3 class="text-white mt-n1">
 			<?php
-			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='complete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOf2Weeks FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND status='complete' AND district = '$districtname' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			$twoweeks = $row['NumberOf2Weeks'];
 
-			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='complete' AND parish = '$parish' ";
+			$sql = "SELECT COUNT(incidentID) AS NumberOfIncidents FROM incident WHERE date1 >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND status='complete' AND district = '$districtname' ";
 			$result = mysqli_query($con, $sql);
 			$row = mysqli_fetch_array($result);
 			echo $row['NumberOfIncidents']."<br/>";;
@@ -240,9 +247,9 @@
 	</tr>
 </thead>
 <tbody>
-
+ 
 <?php  
-$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID WHERE parish = '$parish' LIMIT 5 ";
+$sql = "SELECT * FROM incident INNER JOIN users ON incident.monitor=users.userID WHERE incident.district = '$districtname' LIMIT 5 ";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {

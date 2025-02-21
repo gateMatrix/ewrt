@@ -39,7 +39,13 @@
 $tableid = "qtnID";
 $tableName = "indicators";
 $district = $_SESSION['district'];
-$sql = "SELECT * FROM incident INNER JOIN parishes ON incident.parish = parishes.parishID WHERE district = '$district' AND evidence='1' AND conflict='1' AND risk='1' AND response='1' ";
+
+$sql = "SELECT * FROM district WHERE districtID='$district'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$districtname = $row['name'];  
+
+$sql = "SELECT * FROM incident WHERE district = '$districtname' AND evidence='1' AND conflict='1' AND risk='1' AND response='1' ";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {

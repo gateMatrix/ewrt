@@ -16,16 +16,15 @@
 <!-- BEGIN col-9 -->
 <div class="col-xl-12">
 
-<h1 class="page-header">
-New Incident
-</h1>
+<h4 >
+Update Incident
+</h4> 
 
 <?php 
 if (isset($_POST['update'])){
 $incident 		= $_GET['id']; 
 $name 			= $_POST["name"];
 $incidentType 	= $_POST["incidentType"];
-$parish 		= $_POST["parish"];
 $severity 		= $_POST["severity"];
 $injured 		= $_POST["injured"];
 $fatalities 	= $_POST["fatalities"];

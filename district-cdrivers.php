@@ -33,13 +33,19 @@
 		</tr>
 	</thead>
 	<tbody>
-
+ 
 		
 <?php  
 $tableid = "qtnID";
 $tableName = "indicators";
 $district = $_SESSION['district'];
-$sql = "SELECT * FROM incident INNER JOIN parishes ON incident.parish = parishes.parishID WHERE district = '$district' ";
+
+$sql = "SELECT * FROM district WHERE districtID='$district'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$districtname = $row['name']; 
+
+$sql = "SELECT * FROM incident WHERE district = '$districtname' ";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {

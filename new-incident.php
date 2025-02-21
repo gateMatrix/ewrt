@@ -14,11 +14,15 @@
 <!-- BEGIN row -->
 <div class="row">
 <!-- BEGIN col-9 -->
-<div class="col-xl-12">
-
-<h1 class="page-header">
-New Incident
-</h1>
+<div class="col-xl-12"> 
+ <div class="row">
+	<div class="col-9">
+	<h4 class="page-header">Submitted Incident</h4>
+	</div>
+	<div class="col-3">
+	<button style="float: right;" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modaluser">Add New Incident</button>
+	</div>
+</div>
 
 <?php 
 if (isset($_POST['newincident'])){
@@ -44,9 +48,14 @@ $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result);
 $phone = $row['phone'];
 
+$sql = "SELECT * FROM parishes WHERE name='$parish'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$districtname = $row['district']; 
+
 $message = "There is a new incident that require your urgent attention.";
 
-$sql = "INSERT INTO incident (incidentID, name, incidentType, parish, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$parish', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
+$sql = "INSERT INTO incident (incidentID, name, incidentType, parish, district, severity, injured, fatalities, perpetrators, date1, monitor) VALUES ('$incidentID', '$name', '$incidentType', '$parish', '$districtname', '$severity','$injured', '$fatalities', '$perpetrators', '$date1', '$monitor')";
 
 if(mysqli_query($con, $sql)){
 SendSMS('non_customised','bulk', $phone, $message);
@@ -61,6 +70,122 @@ echo "
     echo mysqli_error($con);
 } }
 ?>
+
+
+
+
+
+
+
+<!-- BEGIN #formControls -->
+<div id="formControls" class="mb-5">
+<div class="card">
+<div class="card-body pb-2">
+<table id="datatableDefault" class="table text-nowrap w-100">
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        
+<?php   
+$tableid = "qtnID";
+$tableName = "indicators"; 
+$district = $_SESSION['district'];
+
+$sql = "SELECT * FROM district WHERE districtID='$district'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$districtname = $row['name']; 
+
+$sql = "SELECT * FROM incident WHERE district = '$districtname' ";
+$result = mysqli_query($con, $sql);
+
+while($row = mysqli_fetch_array($result)) {
+echo "<tr>";
+echo "<td>".$row['incidentID']."</td>";
+echo "<td>".$row['incidentType']."</td>";
+echo "<td>".$row['severity']."</td>";
+echo "<td>".$row['date1']."</td>"; 
+echo "<td> "; ?>
+ 
+<?php if ($row['status'] == 'complete') {
+    // code...
+    echo "<span aria-label='anchor' class='badge bg-success bg-opacity-20 text-success  ' >".strtoupper($row['status'])."</span>
+</td>";
+}elseif($row['status'] == 'incomplete'){
+    echo "<span aria-label='anchor' class='badge bg-warning bg-opacity-20 text-warning' >".strtoupper($row['status'])."</span>
+</td>";
+} 
+echo "<td> ";
+                                                     
+
+ 
+echo "<a href='incident-update.php?id=".$row['incidentID']."' type='button' class='btn btn-theme btn-sm'>Edit Details</a></td>";
+
+echo "</td>";
+
+echo "</tr>";
+}
+?>
+
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- END #formControls -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- END col-9-->
+</div>
+<!-- END row -->
+</div>
+<!-- END col-10 -->
+</div>
+<!-- END row -->
+</div>
+<!-- END container -->
+</div>
+<!-- END #content -->
+
+
+
+
+
+<!-- BEGIN #formControls -->
+<div class="modal  fade" id="modaluser">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title">New Incident</h5>
+	</div>
+	<div class="modal-body">
+		<form id="form" method="POST" action="">
+<div class="row">
+<div class="col-md-12"> 
 <!-- BEGIN #formControls -->
 <div id="formControls" class="mb-5">
 <div class="card">
@@ -69,30 +194,30 @@ echo "
 <div class="row"> 
 <div class="col-md-12">
 
-	<div class="form-group mb-3">
-			<label class="form-check-label" for="defaultCheck1">Incident being reported</label>
-			<textarea name="name" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-	</div>
+    <div class="form-group mb-3">
+            <label class="form-check-label" for="defaultCheck1">Incident being reported</label>
+            <textarea name="name" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
 
 </div>
 </div>
 <div class="row">
 <div class="col-md-6">
-	<div class="mb-3">
-		<label class="form-label">Date and Time of Incident</label>
-		<input type="text" name="date" class="form-control" id="datepicker-default" placeholder="yyyy-mm-dd">
-	</div>
+    <div class="mb-3">
+        <label class="form-label">Date and Time of Incident</label>
+        <input type="text" name="date" class="form-control" id="datepicker-default" placeholder="yyyy-mm-dd">
+    </div>
 </div>
 <div class="col-md-6">
 <div class="mb-3">
-	<label class="form-label">Location of Incident (Parish)</label>
+    <label class="form-label">Location of Incident (Parish)</label>
     <select  class="form-select" id="ex-search"  class="choices form-select"  name="parish">
         <?php 
         $district = $_SESSION['district'];
         $sql = "SELECT * FROM district WHERE districtID ='$district' ";
         $result = mysqli_query($con, $sql);
-		$row = mysqli_fetch_array($result);
-		$districtname = $row['name'];
+        $row = mysqli_fetch_array($result);
+        $districtname = $row['name'];
 
         $sql = "SELECT * FROM parishes WHERE district='$districtname' ";
         if($result = mysqli_query($con, $sql)){
@@ -115,7 +240,7 @@ echo "
 <div class="row">
 <div class="col-md-6">
 <div class="mb-3">
-	<label class="form-label">Type of Incident</label>
+    <label class="form-label">Type of Incident</label>
     <select class="form-select" id="example-select" class="choices form-select" name="incidentType">
         <?php 
         $sql = "SELECT * FROM responses WHERE indicator=6";
@@ -136,7 +261,7 @@ echo "
 </div>
 <div class="col-md-6">
 <div class="mb-3">
-	<label class="form-label">Severity of the incident</label>
+    <label class="form-label">Severity of the incident</label>
     <select class="form-select" id="example-select" class="choices form-select" name="severity">
         <?php 
         $sql = "SELECT * FROM responses WHERE indicator=9";
@@ -162,14 +287,14 @@ echo "
 <div class="col-md-6"> 
 
 <div class="form-group mb-3">
-	<label class="form-label" for="exampleFormControlInput1">Number of Injured Casualties</label>
-	<input type="number" name="injured" class="form-control" placeholder="Cases that result into death">
+    <label class="form-label" for="exampleFormControlInput1">Number of Injured Casualties</label>
+    <input type="number" name="injured" class="form-control" placeholder="Cases that result into death">
 </div>
 </div>
 <div class="col-md-6">
 <div class="form-group mb-3">
-	<label class="form-label" for="exampleFormControlInput1">Number of Fatalities</label>
-	<input type="number" name="fatalities" class="form-control" placeholder="Cases that result into death">
+    <label class="form-label" for="exampleFormControlInput1">Number of Fatalities</label>
+    <input type="number" name="fatalities" class="form-control" placeholder="Cases that result into death">
 </div>
 </div>
 </div>
@@ -177,7 +302,7 @@ echo "
 <div class="row">
 <div class="col-md-12">
 <div class="mb-3">
-	<label class="form-label">Perpetrators</label>
+    <label class="form-label">Perpetrators</label>
     <select class="form-select" name="perpetrators" id="example-select" class="choices form-select">
         <?php 
         $sql = "SELECT * FROM responses WHERE indicator=11";
@@ -199,7 +324,7 @@ echo "
 </div>
 
 <div class="form-group mb-3">
-	<button type="submit" name="newincident" class="btn btn-theme btn">Submit Incident</button>
+    <button type="submit" name="newincident" class="btn btn-theme btn">Submit Incident</button>
 </div>
 
 </form>
@@ -208,18 +333,31 @@ echo "
 </div>
 <!-- END #formControls -->
 
+
+
+
+
+
+
+
+
+
 </div>
-<!-- END col-9-->
 </div>
-<!-- END row -->
+<div class="form-group mb-3" style="padding-top: 10px;">
+	
+	<button type="submit" name="register" class="btn btn-theme btn">Register User</button>
 </div>
-<!-- END col-10 -->
+</form>
+	</div>
 </div>
-<!-- END row -->
 </div>
-<!-- END container -->
 </div>
-<!-- END #content -->
+
+
+
+
+
 
 <!-- BEGIN btn-scroll-top -->
 <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>

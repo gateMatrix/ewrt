@@ -38,7 +38,14 @@
 <?php  
 $tableid = "qtnID"; 
 $tableName = "indicators";
-$sql = "SELECT *  FROM  incident INNER JOIN users ON incident.monitor=users.userID ORDER BY ID DESC";
+$district = $_SESSION['district'];
+
+$sql = "SELECT * FROM district WHERE districtID='$district'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$districtname = $row['name'];  
+
+$sql = "SELECT *  FROM  incident INNER JOIN users ON incident.monitor=users.userID WHERE incident.district='$districtname' ORDER BY ID DESC";
 $result = mysqli_query($con, $sql);
 
 while($row = mysqli_fetch_array($result)) {
@@ -47,7 +54,7 @@ echo "<td>".$row['incidentID']."</td>";
 echo "<td>".$row['incidentType']."</td>";
 echo "<td>".$row['severity']."</td>";
  
-echo "<td> "; ?> 
+echo "<td> "; ?>
 
 <?php if ($row['status'] == 'complete') {
 	// code...

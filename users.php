@@ -77,6 +77,10 @@ echo "
 
 }
 ?>
+
+
+
+
 <!-- BEGIN #formControls -->
 <div class="modal  fade" id="modaluser">
 <div class="modal-dialog modal-lg">
